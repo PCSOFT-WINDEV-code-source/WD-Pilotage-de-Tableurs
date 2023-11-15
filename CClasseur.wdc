@@ -1,0 +1,2235 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CClasseur
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x175d6fc30d195ff3
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAADLHKbvOoicWdwNeuVfFNH06fmZt4rhleR3pl7B2gFBga2ETN1BwPJFxYxEuwk3agDP9JqS6QfLQxCBqsQpbGqvP3I/Ayyn
+  type_code : 10
+  p_codes :
+   -
+     code : |1-
+      // CClasseur reprend les caractéristiques de la classe de base COpenOffice
+      CClasseur est une classe
+      	herite de Ctableur
+      
+      
+      	oServiceManager 		est un objet OLE dynamique
+      	oDesktop 				est un objet OLE dynamique
+      	oDocument 				est un objet OLE dynamique		
+      	oFeuille 				est un objet OLE dynamique
+      	oPlageCellules 			est un objet OLE dynamique
+      
+      	m_nTabFeuillesSélectionnées est un tableau de 0 entiers	// Liste des noms de feuilles sélectionnées
+      
+      	CONSTANTE 
+      			
+      		// Format
+      		cst_Format_Nombre 		= 0
+      		cst_Format_Date 		= 30
+      		cst_Format_Heure		= 41
+      		cst_Format_Pourcentage	= 11
+      		cst_Format_Monetaire	= 106
+      		cst_Format_Scientifique	= 60
+      		cst_Format_Fraction		= 70
+      		cst_Format_Texte		= 100
+      				
+      		// Style de remplissage (pour les motifs)
+      		cnFillStyleAucun 		= 0
+      		cnFillStyleSolide 		= 1
+      		cnFillStyleDegradé 		= 2
+      		cnFillStyleHachure 		= 3
+      		
+      		cnFillStyle_Simple 		= 0
+      		cnFillStyle_Double 		= 1
+      		cnFillStyle_Triple 		= 2
+      		
+      	FIN
+      Fin
+     type : 131072
+   -
+     code : |1-
+      
+     type : 131074
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1683624719235571699
+     type_code : 27
+     code : |1-
+      Procédure Constructeur()
+      
+      // Nom du tableur
+      :m_sNomTableur = CChoixTableur::csProduit_OOCalc
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1683624719235637235
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+     type : 655360
+   -
+     name : Creer
+     internal_properties : CAAAAAgAAACdfsZaA7fo98iPYGG+p5RwyyPfUWRGH4SkhxOQR/ADQlkQ6q21NTkshF/CkP8TwsE/RbX/5anzJa2ZrWRbSsKP+4oPLNdtASMjVmyJK2sctXPTThe9Ea3Po5E4jXWgFToEZHg1jDznDxFdTMoCzmOSyx1ABAuVWacn6Qua2FAOgEG2A5EteKTWIpUzcHce8rZ5TGqzKsYNCjlzxNlrlv54iQ==
+     procedure_id : 1683624719235702771
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Creer ()
+      // Création d'un nouveau classeur
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si la création est effective, FAUX dans le cas contraire             
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Creer()
+      
+      // Variables locales
+      mNoArgs 		est un tableau de 0 variant
+      
+      
+      // Service manager nécessaire à OpenOffice
+      :_DémarrerService()
+      
+      // Création d'un nouveau classeur
+      :oDocument 	= :oDesktop>>LoadComponentFromURL("private:factory/scalc", "_blank", 0, mNoArgs)
+      
+      // Récupération de la feuille active
+      :oFeuille 	= :oDocument>>CurrentController>>ActiveSheet
+      
+      // Sélection par défaut de la cellule A1
+      :Cellule_Sélectionner("A1")
+      
+      // La création est effective
+      renvoyer vrai
+     type : 458752
+   -
+     name : OuvrirClasseur
+     internal_properties : CAAAAAgAAAAtZsUpD3asa3CD+y5TWiKyWouR5zfckRikDXD4KGIp0uUVRFtOb4m9ljsS6djUw30ekNIu7NUmblOj95T4xUbnsseTLpLJIGYVb3JhpQF/uOzMDw2Od4xiyC2vjIUetj7NpVX78BXhqVrw+wcz7q5umHwzwsugpesg5mzXiay1ODpH+G3fabzyteD8d+45d0TmLIE5jjTH/5RgopRDyfAAEeSuBnaKDx+aTquEZYyVXI9joS4QwsdjVvb6SXCg2g==
+     procedure_id : 1683624719235768307
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] OuvrirClasseur ()
+      // Ouvre un classeur existant
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :   VRAI si le document est ouvert, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE OuvrirClasseur()
+      
+      // Variables locales
+      mNoArgs 			est un tableau de 0 variant
+      sCheminFormaté 		est une chaine
+      sClasseur 			est une chaine
+      
+      
+      // Service manager nécessaire à OpenOffice
+      :_DémarrerService()
+      
+      // Choix du classeur à ouvrir
+      sClasseur = fSélecteur("", "", "Sélectionnez un classeur...",  "Classeur OpenDocument (*.ods)"+TAB+"*.ods" +RC+ "Openoffice.org Classeur (*.sxc)"+TAB+"*.sxc"+RC+"Openoffice.org Modèle de classeur (*.stc)"+TAB+"*.stc"+RC+"Microsoft Excel (*.xls)"+TAB+"*.xls"+RC+"Microsoft Excel 2007 (*.xlsx)"+TAB+"*.xlsx"+RC+"Microsoft Excel Modèle (*.xlt)"+TAB+"*.xlt"+RC+"StarCalc (*.sdc)"+TAB+"*.sdc"+RC+"StarCalc Modèle (*.vor)"+TAB+"*.vor"+RC+"Tous fichiers (*.*)"+TAB+"*.*", "*.ods", fselOuvre+fselExiste)
+      
+      // Le fichier existe-t-il ?
+      si fFichierExiste(sClasseur) alors
+      	
+      	// Formatage du chemin du fichier
+      	sCheminFormaté 	= "file:///" + remplace(sClasseur,"\","/")
+      	
+      	// Ouverture du fichier dans Open Office
+      	:oDocument 		= :oDesktop>>LoadComponentFromURL(sCheminFormaté, "_blank", 0, mNoArgs)
+      	
+      	// Si l'objet n'est pas Null
+      	si :oDocument <> Null ALORS
+      		// Feuille active
+      		:oFeuille 		= :oDocument>>CurrentController>>ActiveSheet
+      		// Cellules sélectionnées
+      		:oPlageCellules = :oDocument>>CurrentSelection
+      		renvoyer vrai
+      	fin
+      fin
+      
+      // L'ouverture n'a pas pu être effectuée
+      renvoyer faux
+     type : 458752
+   -
+     name : Feuille_Sélectionner
+     internal_properties : CAAAAAgAAAAj7GzISTSZUwzDJKnqd+Cob+OHgagGI4jwy9+4K7BHAoXY4u3BBbWwmNvOIKMzZmG7pd3/OSnn4akFKSxXevbfd4L/HFNdTf//WhhhzzMAtTEV+ImPFwsVgaPKRy9m/yxadoonXqKFLW8/ZmTUnH2kgW+StkUzD13lS9W8Km6o2n9wRdPn9koEaO+dmnmcfDjfTuQ17BRT0P8NcYu9JGjmFw==
+     procedure_id : 1683624719235833843
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Sélectionner (<psNomFeuille>)
+      // Sélection d'une feuille par son nom
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen :      VRAI si la feuille est sélectionnée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Sélectionner(psNomFeuille)
+      
+      // Variables locales
+      nIndice			est un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Si la feuille existe
+      si psNomFeuille<>"" _et_ :Feuille_Existe(psNomFeuille) alors
+      	// Sélection de la feuille spécifiée
+      	:oFeuille = :oDocument>>Sheets>>getByName(psNomFeuille)
+      	// Affichage
+      	:oDocument>>CurrentController>>ActiveSheet = :oFeuille
+      	// Parcours des feuilles du document
+      	nNbreFeuilles est un entier = :Feuille_Occurrence()
+      	POUR i = 1 à nNbreFeuilles
+      		si :Feuille_Nom(i) = psNomFeuille alors 
+      			// Mémorise l'indice
+      			nIndice = i-1 // OOCalc compte à partir de 0
+      			sortir
+      		FIN
+      	FIN
+      	// Vide le tableau des feuilles sélectionnées
+      	TableauSupprimeTout(:m_nTabFeuillesSélectionnées)
+      	// Ajoute l'indice de cette feuille
+      	TableauAjoute(:m_nTabFeuillesSélectionnées,nIndice)
+      	
+      	// La feuille a été sélectionnée
+      	renvoyer vrai
+      	
+      fin
+      
+      // La feuille n'a pas été sélectionnée
+      RENVOYER Faux
+     type : 458752
+   -
+     name : Cellule_Ecrire
+     internal_properties : CAAAAAgAAAAcW1/qE0WeC7O/H20iT/YqoZ4xOu9ploowU8E9J+cefWEZX8NpGJXvAzIZhWz32TGUD8/C2iSZX5yv8P8bmJ0Bg66D0qUlEF22g5DmRSlg9iytzajDIHyyCs1MU2dEqO+tfolREyuOUbwMTcLwAwbIn1UU8FtIPMtRDcP8pr21/i2+f8XV1UkeZulVpBdhqDuOutcUMyfVVnpu4PfF3eiEFYeB5gAWfLWfm3j2D3WL2J+I/xPoN0fS+7v6YSCRtqJ2Luf2DgSw4GWmD1z+q251QwltDLfl4Z50
+     procedure_id : 1683624719235899379
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Ecrire (<psCellule>, <psValeur>)
+      // Ecrire le contenu spécifié dans la cellule spécifiée
+      // Paramètres :
+      //	psCellule : Ligne dans laquelle écrire
+      //	psValeur : Valeur à écrire numérique, chaine ou formule
+      // Valeur de retour :
+      // 	booléen :   VRAI si la valeur a pu être positionnée dans la cellule, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Ecrire(psCellule, psValeur)
+      
+      // Variables locales
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // S'il ne s'agit pas d'une adresse de cellule, rien n'est fait
+      si VérifieExpressionRégulière(psCellule, "[a-zA-Z]+[0-9]+")=faux ALORS
+      	renvoyer faux
+      FIN
+      
+      // S'agit-il d'un numérique ?
+      si EstNumérique(psValeur) alors
+      	// Ecrire la valeur spécifiée dans la cellule spécifiée
+      	:ofeuille>>getCellRangeByName(psCellule)>>Value = psValeur
+      sinon
+      	// S'agit-il d'une formule ?
+      	si gauche(psValeur,1)="=" ALORS
+      		// Ecrire la formule spécifiée dans la cellule spécifiée
+      		:ofeuille>>getCellRangeByName(psCellule)>>Formula = psValeur+" "
+      		:oDocument>>calculateAll()
+      	sinon
+      		// Ecrire le texte spécifié dans la cellule spécifiée
+      		:ofeuille>>getCellRangeByName(psCellule)>>String = psValeur
+      	FIN
+      fin
+      
+      // L'écriture dans la cellule est effective
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Lire
+     internal_properties : CAAAAAgAAACth7jzm4g/QlVWE7zwW67/Nac2QD4rr9c1FO9S3MHp6TdCcIT1bn3ddjWz+gAuU4TlKFh4Jl7/09ee3f73yUXdFCjBLIghMRO5u6+l1dPvw4KYAcABZPvqaXkalb4qmgnoEOSy3TF0GN7wEUo=
+     procedure_id : 1683624719235964915
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Lire (<psCellule>)
+      // Interroge le contenu d'une cellule
+      // Paramètres :
+      //	psCellule : Cellule à interroger
+      // Valeur de retour :
+      // 	Type indéterminé :   Valeur lue
+      
+      Procédure VIRTUELLE Cellule_Lire(psCellule)
+      
+      // Variables locales
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // S'il ne s'agit pas d'une adresse de cellule, rien n'est fait
+      si VérifieExpressionRégulière(psCellule, "[a-zA-Z]+[0-9]+")=faux ALORS
+      	renvoyer ""
+      FIN
+      
+      // Selon le type de la cellule
+      selon :Cellule_Type(psCellule)
+      	// VALEUR
+      	cas "VALEUR"	 : 	renvoyer :ofeuille>>getCellRangeByName(psCellule)>>Value
+      	// TEXTE
+      	cas "TEXTE"	: 	renvoyer :ofeuille>>getCellRangeByName(psCellule)>>String
+      	// FORMULE
+      	cas "FORMULE" :	renvoyer :ofeuille>>getCellRangeByName(psCellule)>>FormulaLocal
+      	// TYPE INCONNU
+      	autres cas : 	renvoyer ""
+      	
+      FIN
+     type : 458752
+   -
+     name : Cellule_Police
+     internal_properties : CAAAAAgAAADNp5gTOyjn8tXmY4wQO17ftefmEP7L39dF9O/yDFHJmedSUKRlHv0ttoXj6uDOw2TFCGio5n7Haz/GJUbf4Z21fICJ9HB5GWvBo/cNPcuHGwpwyeipfMPCMUECvcYikkEQaGw6RdEUuL4QMWo=
+     procedure_id : 1683624719236030451
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Police ( [<psPlage> [, <psPolice> [, <pnTaille> [, <pbGras> [, <pbItalique> [, <pbSouligne> [, <pnCouleurTexte> [, <pnCouleurFond>]]]]]]]])
+      // Modification de police des cellules de la plage sélectionnée
+      // Paramètres :
+      //	psPlage : Plage de cellule
+      //	psPolice : Police à appliquer
+      //	pnTaille (valeur par défaut=-1) : Taille de la police à appliquer
+      //	pbGras (valeur par défaut=-1) : Gras
+      //	pbItalique (valeur par défaut=-1) : Italique (propriété non disponible par pilotage OLE)
+      //	pbSouligne (valeur par défaut=-1) : Souligné
+      //	pnCouleurTexte (valeur par défaut=-1) : Couleur du texte
+      //	pnCouleurFond (valeur par défaut=-1) : Couleur de fond
+      // Valeur de retour :
+      // 	booléen :   VRAI si la police a pu être modifiée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Cellule_Police(psPlage="",psPolice="", pnTaille=-1, pbGras=-1, pbItalique <utile> =-1, pbSouligne=-1, pnCouleurTexte=-1, pnCouleurFond=-1)
+      
+      // Variables locales
+      nCouleurBVR 		est un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI psPlage<>"" ALORS
+      	:Cellule_Sélectionner(psPlage)
+      FIN
+      
+      // Police
+      si psPolice<>"" ALORS
+      	:oPlageCellules>>CharFontName = psPolice
+      FIN
+      
+      // Taille
+      si pnTaille<>-1 ALORS
+      	:oPlageCellules>>CharHeight = max(val(pnTaille),2)
+      FIN
+      
+      // Gras
+      si pbGras<>-1 ALORS
+      	si pbGras alors
+      		:oPlageCellules>>CharWeight = 150
+      	sinon
+      		:oPlageCellules>>CharWeight = 0
+      	fin
+      FIN
+      
+      // Souligné
+      si pbSouligne<>-1 ALORS
+      	si pbSouligne alors
+      		:oPlageCellules>>CharUnderline = 1
+      	sinon
+      		:oPlageCellules>>CharUnderline = 0
+      	fin
+      FIN
+      
+      // Couleur
+      si pnCouleurTexte<>-1 ALORS
+      	
+      	
+      	nCouleurBVR = :_ConversionCouleur(pnCouleurTexte)
+      	
+      	:oPlageCellules>>CharColor = nCouleurBVR	
+      FIN
+      
+      // Couleur de fond
+      si pnCouleurFond<>-1 ALORS
+      	
+      	// Conversion RVB -> BVR
+      	nCouleurBVR = :_ConversionCouleur(pnCouleurFond)
+      	
+      	:oPlageCellules>>CellBackColor = nCouleurBVR
+      FIN
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_AlignementVertical
+     internal_properties : CAAAAAgAAACdfsZam+5YD6q7BB14UyiGAX1bb2Y6LRCuP0cwXaBLnLveJmvz9Ts8dgMqjHn3Lo+9xw2dkzFloa8FlegdNj49bSTbvhFR19OJdozlFS9ok+JkTyCu8IqsZrLBtr593gkbfQG+/QOMyNCaAY/PZ/BhDpJNCTBoWoTCcoTTERXDN5zLqA66C42j8aLA7fST52mgVdM0q/U2O2DAu0Frlv54iQ==
+     procedure_id : 1683624719236095987
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementVertical ( [<sPlage> [, <pnAlignement>]])
+      // Spécifie l'alignement vertical des cellules sélectionnées
+      // Paramètres :
+      //	sPlage : Plage à aligner
+      //	pnAlignement (valeur par défaut=2) : 1->en haut, 2->centre, 3->en bas
+      // Valeur de retour :
+      // 	booléen : VRAI si l'alignement est effectif, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_AlignementVertical(sPlage="",pnAlignement=::cnAlignV_Centre)
+      
+      // Variables locales
+      nAlignement est un entier = pnAlignement
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Si l'alignement est correct
+      si nAlignement dans (::cnAlignV_Bas,::cnAlignV_Centre,::cnAlignV_Haut) alors
+      	// Spécifie l'alignement vertical des cellules de la plage sélectionnée
+      	:oPlageCellules>>VertJustify = nAlignement
+      	renvoyer Vrai
+      fin
+      
+      // L'alignement n'a pas pu être effectué
+      renvoyer faux
+     type : 458752
+   -
+     name : Cellule_AlignementHorizontal
+     internal_properties : CAAAAAgAAACdfsZam+5YD6q7BB14UyiGAX1bb2Y6LRCuP0cwXaBLnLveJmvz9Ts8dgMqjHn3Lo+9xw2dkzFloa8FlegdNj49bSTbvhFR19OJdozlFS9ok+JkTyCu8IqsZrLBtr593gkbfQG+/QOMyNCaAY/PZ/BhDpJNCTBoWoTCcoTTERXDN5zLqA66C42j8aLA7fST52mgVdM0q/U2O2DAu0Frlv54iQ==
+     procedure_id : 1683624719236161523
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementHorizontal ( [<sPlage> [, <pnAlignement>]])
+      // Spécifie l'alignement horizontal des cellules sélectionnées
+      // Paramètres :
+      //	sPlage : Plage à aligner
+      //	pnAlignement (valeur par défaut=1) : cnAlignH_Gauche, cnAlignH_Centre, cnAlignH_Droite
+      // Valeur de retour :
+      // 	booléen : VRAI si l'alignement est effectif, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_AlignementHorizontal(sPlage="",pnAlignement=::cnAlignH_Gauche)
+      
+      // Variables locales
+      nAlignement est un entier = pnAlignement
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Si l'alignement est correct
+      si nAlignement dans (::cnAlignh_gauche,::cnAlignh_Centre,::cnAlignh_Droite) alors
+      	// Spécifie l'alignement horizontal des cellules de la plage sélectionnée
+      	:oPlageCellules>>HoriJustify = nAlignement
+      	renvoyer Vrai
+      fin
+      
+      // L'alignement n'a pas pu être effectué
+      renvoyer faux
+     type : 458752
+   -
+     name : Colonne_Largeur
+     internal_properties : CAAAAAgAAACxs0mSBQ2SSrP5X5b/JOBnNmL6qImyoPjGRkFrh0WPr6k+OpAnFlLLd5hNhhdzQsCIDniiml1dCoEo6xBH76pr9kYcK/0J3xk0p8FJHRRET4XldbAi+3JR3QySbib7Z0NR5OaHZmguLL3R8H17fYiAfB/QiGTi2Uf9KcxAYGGr85SPFHlQasE1bKAOsAIRdD+aNPpS3wSqLe19lwF/CIId0sIXk/6jKqgeR/LsQ3LRcRGJRTmgdYt7nET9au2gWcrZgF1x/y1q
+     procedure_id : 1683624719236227059
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Largeur ( [<sColonne> [, <nLargeur>]])
+      // Modification de la largeur de la colonne spécifiée
+      // Paramètres :
+      //	sColonne : Indice de la colonne à redimensionner
+      //	nLargeur (valeur par défaut=-1) : Nouvelle largeur en 1/100 de mm (ne rien préciser pour appliquer une largeur optimale)
+      // Valeur de retour :
+      // 	booléen :   VRAI si la largeur a été modifiée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Colonne_Largeur(sColonne="", nLargeur=-1)
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Colonne a sélectionner
+      si sColonne <> "" ALORS
+      	:Cellule_Sélectionner(sColonne)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Largeur de la colonne spécifiée
+      si nLargeur=-1 alors
+      	
+      	// Définit la propriété "Largeur"
+      	tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	tabPropriete[1]>>Name 	= "aExtraWidth"
+      	tabPropriete[1]>>Value 	= 200
+      	
+      	// Insertion par le dispatcher
+      	pautDispatcher>>executeDispatch(pautFrame, ".uno:SetOptimalColumnWidth", "", 0, tabPropriete )
+      	
+      sinon
+      	// Définit la propriété "Largeur"
+      	tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	tabPropriete[1]>>Name 	= "ColumnWidth"
+      	tabPropriete[1]>>Value 	= nLargeur*100
+      	
+      	// Insertion par le dispatcher
+      	pautDispatcher>>executeDispatch(pautFrame, ".uno:ColumnWidth", "", 0, tabPropriete )
+      FIN
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Ligne_Hauteur
+     internal_properties : CAAAAAgAAABfGQ6FsRMdYqvAS+5ASziJ5/GkMIjRox9r1tcsdNG3T9XgBtTzPIHhnP/PEDwKHa67TkK84Bgc7rxzYrdu8oDaQ4ue7cvm6kpiJNzWZKSqcNFjQgXIXQiJTja/Fh1L+Sprz8lbOMyaPjCCo/g=
+     procedure_id : 1683624719236292595
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Hauteur ( [<pnLigne> [, <pnHauteur>]])
+      // Modification de la hauteur de la ligne spécifiée
+      // Paramètres :
+      //	pnLigne (valeur par défaut="") : Indice de la ligne à redimensionner
+      //	pnHauteur (valeur par défaut=-1) : Nouvelle hauteur en 1/100 de mm (ne rien préciser pour appliquer une hauteur optimale)
+      // Valeur de retour :
+      // 	booléen :  VRAI si la hauteur a été modifiée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Ligne_Hauteur(pnLigne = 0, pnHauteur=-1)
+      
+      // Variables locales
+      nLigne 			est un entier = max(pnLigne,1)
+      nHauteur 		est un entier = pnHauteur
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Largeur de la colonne spécifiée
+      si nHauteur=-1 alors
+      	:oFeuille>>getRows>>getByIndex(nLigne-1)>>OptimalHeight = vrai
+      sinon
+      	nHauteur = max(0,pnHauteur)
+      	:oFeuille>>getRows>>getByIndex(nLigne-1)>>Height = nHauteur*100
+      FIN
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Sélectionner
+     internal_properties : CAAAAAgAAABLLRJpBcdTNg9MHxpED/BJg90MnOiNYxvPsjMgCNXPT9FcbrjzENFNWIPDlMjmnX7XujpQYNTSBJ6dyD0wgA4kLdF0+7X8iNjkzmJc5iIo+kvJOBNqu/aHwAhtBCfRZ1RVFeeREhjukkSWt+w=
+     procedure_id : 1683624719236358131
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Sélectionner (<sCellules>)
+      //
+      // Paramètres :
+      //	sCellules : Cellule(s) a sélectionner
+      // Valeur de retour :
+      // 	booléen :    VRAI si la cellule a été sélectionnée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Cellule_Sélectionner(sCellules)
+      
+      // Variables locales
+      bPlageOK			est un booleen = faux
+      sCellule, sLigne1, sLigne2, sColonne1, sColonne2, sCh sont des chaines
+      i 					est un entier
+      nBorne				est un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      sPlage  est une chaine = sCellules
+      
+      // si on reçoit A1, on le formate en A1:A1
+      SI Position(sPlage,":")=0 ALORS
+      	sPlage = sPlage+":"+sPlage
+      FIN
+      
+      // première cellule
+      sCellule = ExtraitChaîne(sPlage,1,":")
+      nBorne = Taille(sCellule)
+      POUR i=1 A nBorne
+      	sCh = sCellule[[i]] 
+      	SI NumériqueVersChaîne(Val(sCh))~=sCh ALORS
+      		sLigne1 += sCh
+      	SINON
+      		sColonne1 += sCh
+      	FIN
+      FIN
+      
+      // deuxième cellule
+      sCellule = ExtraitChaîne(sPlage,2,":")
+      nBorne = Taille(sCellule)
+      POUR i=1 A nBorne
+      	sCh = sCellule[[i]] 
+      	SI NumériqueVersChaîne(Val(sCh))~=sCh ALORS
+      		sLigne2 += sCh
+      	SINON         
+      		sColonne2 += sCh
+      	FIN
+      FIN
+      
+      
+      // si c'est une plage de lignes
+      SI (sColonne1~="" ET sColonne2~="") ALORS
+      	// Sélection de la plage de cellules
+      	:oPlageCellules = :oFeuille>>getCellRangeByName("A"+sLigne1+":"+"A"+sLigne2)
+      	bPlageOK = vrai
+      FIN
+      
+      // si c'est une plage de colonnes
+      SI (sLigne1~="" ET sLigne2~="") ALORS
+      	// Sélection de la plage de cellules
+      	:oPlageCellules = :oFeuille>>getCellRangeByName(sColonne1+"1"+":"+sColonne2+"1")
+      	bPlageOK = Vrai
+      FIN
+      
+      // si c'est une plage de cellules
+      SI (sLigne1<>"" ET sLigne2<>"" ET sColonne1<>"" ET sColonne2<>"") ALORS
+      	// Sélection de la plage de cellules
+      	:oPlageCellules = :oFeuille>>getCellRangeByName(sColonne1+sLigne1+":"+sColonne2+sLigne2)
+      	bPlageOK = Vrai
+      FIN
+      
+      si bPlageOK  ALORS
+      	// Affichage
+      	:oDocument>>CurrentController>>Select(:oPlageCellules)	
+      SINON
+      	erreur("La plage indiquée n'est pas correct")
+      	renvoyer faux
+      FIN
+      
+      
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_Ajouter
+     internal_properties : CAAAAAgAAAAj7GzISTSZUwzDJKnqd+Cob+OHgagGI4jwy9+4K7BHAoXY4u3BBbWwmNvOIKMzZmG7pd3/OSnn4akFKSxXevbfd4L/HFNdTf//WhhhzzMAtTEV+ImPFwsVgaPKRy9m/yxadoonXqKFLW8/ZmTUnH2kgW+StkUzD13lS9W8Km6o2n9wRdPn9koEaO+dmnmcfDjfTuQ17BRT0P8NcYu9JGjmFw==
+     procedure_id : 1683624719236423667
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Ajouter (<psNomFeuille> [, <pnIndice>])
+      // Ajouter une feuille dans un classeur
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille
+      //	pnIndice (valeur par défaut=1) : Position de la feuille par rapport aux feuilles existantes
+      // Valeur de retour :
+      // 	booléen :  VRAI si la feuille a été ajoutée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Ajouter(psNomFeuille, pnIndice=:Feuille_Occurrence()) <redéfinition>
+      
+      // Variables locales
+      nIndice 		est un entier = max(pnIndice,1)
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Si la feuille n'existe pas déjà
+      si :Feuille_Existe(psNomFeuille)=faux _et_ psNomFeuille<>"" alors
+      	// Ajout de la feuille
+      	:oDocument>>Sheets>>insertNewByName(psNomFeuille, pnIndice-1)
+      	renvoyer Vrai
+      sinon
+      	renvoyer faux
+      fin
+     type : 458752
+   -
+     name : Feuille_Supprimer
+     internal_properties : CAAAAAgAAAD/2HikdZm3AzaH8HWkm4RGDU0zrwLakWQiM/sASaCnFC9uHmNHRW/oIkfu3LVfkrfRZ+2dt1kB9dvB8RAxfop1ISRbFl2JY+/dAggNcWcUI6hOMTKY3oAi9OSzWAiD8Btp53vI53kaNm5cC6kBVaKTPEzn62o2IMpwpL6dy8udCcqFQtDsWdPpN3xq176hMWNW532ePbvU2S7yRu/ZOFzaaw==
+     procedure_id : 1683624719236489203
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Supprimer ( [<psNomFeuille>])
+      // Supprimer une feuille
+      // Paramètres :
+      //	psNomFeuille (valeur par défaut="") : Nom de la feuille à supprimer
+      // Valeur de retour :
+      // 	booléen :   VRAI si la feuille a été supprimée , FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Supprimer(psNomFeuille="")
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Si la feuille existe
+      si psNomFeuille<>"" _et_ :Feuille_Existe(psNomFeuille) alors
+      	// Un classeur doit contenir au moins une feuille	
+      	si :Feuille_Occurrence()>1 alors
+      		// Suppression de la feuille
+      		:oDocument>>Sheets>>removeByName(psNomFeuille)
+      		// Feuille active
+      		:oFeuille = :oDocument>>CurrentController>>ActiveSheet
+      		renvoyer vrai
+      	fin
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Feuille_Renommer
+     internal_properties : CAAAAAgAAAD/2HikdZm3AzaH8HWkm4RGDU0zrwLakWQiM/sASaCnFC9uHmNHRW/oIkfu3LVfkrfRZ+2dt1kB9dvB8RAxfop1ISRbFl2JY+/dAggNcWcUI6hOMTKY3oAi9OSzWAiD8Btp53vI53kaNm5cC6kBVaKTPEzn62o2IMpwpL6dy8udCcqFQtDsWdPpN3xq176hMWNW532ePbvU2S7yRu/ZOFzaaw==
+     procedure_id : 1683624719236554739
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Renommer (<psNomFeuille>, <psNouveauNom>)
+      // Renomme une feuille
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille à modifier
+      //	psNouveauNom : Nouveau nom à donner à la feuille
+      // Valeur de retour :
+      // 	booléen :      VRAI si la feuille a été renommée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Renommer(psNomFeuille, psNouveauNom)
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // pas de nom vide pour les feuilles
+      si psNomFeuille="" _ou_ psNouveauNom="" ALORS
+      	renvoyer faux
+      FIN
+      
+      // si la feuille à modifier existe
+      // et que le nouveau nom n'est pas déjà pris
+      si :Feuille_Existe(psNomFeuille)=vrai _et_ :Feuille_Existe(psNouveauNom)=faux alors
+      	// Renommage de la feuille
+      	:oDocument>>Sheets>>getByName(psNomFeuille)>>Name = psNouveauNom
+      	renvoyer Vrai
+      sinon
+      	renvoyer faux
+      fin
+     type : 458752
+   -
+     name : Feuille_Existe
+     internal_properties : CAAAAAgAAAD/2HikdZm3AzaH8HWkm4RGDU0zrwLakWQiM/sASaCnFC9uHmNHRW/oIkfu3LVfkrfRZ+2dt1kB9dvB8RAxfop1ISRbFl2JY+/dAggNcWcUI6hOMTKY3oAi9OSzWAiD8Btp53vI53kaNm5cC6kBVaKTPEzn62o2IMpwpL6dy8udCcqFQtDsWdPpN3xq176hMWNW532ePbvU2S7yRu/ZOFzaaw==
+     procedure_id : 1683624719236620275
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Existe (<psNomFeuille>)
+      // Teste l'existence d'une feuille
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille
+      // Valeur de retour :
+      // 	Type indéterminé :   VRAI si la feuille existe, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Existe(psNomFeuille)
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      si psNomFeuille<>"" ALORS
+      	renvoyer :oDocument>>Sheets>>hasByName(psNomFeuille)
+      sinon
+      	renvoyer faux	
+      FIN
+     type : 458752
+   -
+     name : Colonne_Inserer
+     internal_properties : CAAAAAgAAABmh94XII+C27HzQ8QzD2k9ZwJZrTEgEDpUT30/TfqitJK5ZKfqYp9XWZDhdjrlGIZu6a+04Xx69775sgfvzzVpu65TOt01kJ1WyzBerclw9iwF1Xgj6JQKAg2E87essHdFDskJm2uekdz07cr0D1q04+l4jL8k2L8lcRegCgn5WoFSM6EZAVUSau1pSPs9vKci7stwt9OB2u7yZLzs1tX1xuppmEFZxVRWWUU1EpMn8MMqAT0HpifG1HNGIjH6TePRg6RWYMEDn3DybpsGmnmAAOqGvTPQHWQO
+     procedure_id : 1683624719236685811
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Inserer ( [<sColonne>])
+      // Ajout d'une colonne à l'endroit spécifié
+      // Paramètres :
+      //	sColonne : Indice de la colonne à ajouter
+      // Valeur de retour :
+      // 	booléen :   VRAI si la colonne a été insérée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Inserer(sColonne="")
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      si sColonne <> "" ALORS
+      	:Cellule_Sélectionner(sColonne)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Définit la propriété "Format"
+      tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      tabPropriete[1]>>Name 	= "Flags"
+      tabPropriete[1]>>Value 	= sColonne
+      
+      // Insertion par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:InsertCell", "", 0, tabPropriete )
+      
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Inserer
+     internal_properties : CAAAAAgAAABDDExo6RR180QzHEEKz6BgL0uP2UheUyBwQ++Ig+AP8u2Y8o2J1V2QANtGCHPrtlmbnfW3SQGX6ZkNOQyPur4fH7J/PGu9tX/nmgB5v9uQjTURjFW7MyfJrZcmI9PKa1B+Ms5jGs6x0cujArAIUOkYZUvm8hGPW6EhHzG4PvKEbkOc6U9joiY4RHNpBs0wqKwzOlixKBAv1Mtx0WtdhIiGtw==
+     procedure_id : 1683624719236751347
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Inserer (<pnPosition> [, <pnNombreLigne>])
+      // Ajout d'une ligne à l'endroit spécifié
+      // Paramètres :
+      //	pnPosition : Indice de la ligne à ajouter
+      //	pnNombreLigne (valeur par défaut=1) : Nombre de lignes à ajouter
+      // Valeur de retour :
+      // 	booléen :   VRAI si la ligne a été insérée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Inserer(pnPosition, pnNombreLigne=1) <redéfinition>
+      
+      // Variables locales
+      nPosition 		est un entier = pnPosition
+      nNombreLigne 	est un entier = max(val(pnNombreLigne), 1)
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      si pnPosition>=0 alors
+      	quand exception dans
+      		:oFeuille>>getCellByPosition(1, nPosition-1)>>Rows>>insertByIndex(0, nNombreLigne)
+      		renvoyer vrai
+      	faire
+      	fin
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Colonne_Supprimer
+     internal_properties : CAAAAAgAAAAROsA9D2grU79EWDrQFFr2QSWlPwg4VKtp825ZDbT7r/AJtkCILMI6oz+tG2W09APNKfV9hPCbc7SgL6YhsPn86/BJw8uWkMkNU8uE6gjGiWPYzBaGe8WvfKs1wD1Xm8ZIeznoNHQku5wVxa+65erb4HodiV6GV1DqcQseMY/VmeC6nRCw/D8+pSiVrGdtDoqm4VRCYBj2SCjhtCGAxpryJsfLA9X5CvBW6BofNdFxwWk3/Ms=
+     procedure_id : 1683624719236816883
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Supprimer ( [<sColonne>])
+      // Supprime la colonne spécifiée
+      // Paramètres :
+      //	sColonne : Indice de la première colonne à supprimer
+      // Valeur de retour :
+      // 	booléen : VRAI si la colonne a été supprimée
+      //
+      Procédure VIRTUELLE Colonne_Supprimer(sColonne="")
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabMNoArgs 			est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      SI sColonne <> "" ALORS
+      	:Cellule_Sélectionner(sColonne)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      
+      // Insertion par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:DeleteColumns", "", 0, tabMNoArgs )
+      
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Ligne_Supprimer
+     internal_properties : CAAAAAgAAABfGQ6FsRMdYqvAS+5ASziJ5/GkMIjRox9r1tcsdNG3T9XgBtTzPIHhnP/PEDwKHa67TkK84Bgc7rxzYrdu8oDaQ4ue7cvm6kpiJNzWZKSqcNFjQgXIXQiJTja/Fh1L+Sprz8lbOMyaPjCCo/g=
+     procedure_id : 1683624719236882419
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Supprimer (<pnPosition> [, <pnNombreLigne>])
+      // Supprime la ligne spécifiée
+      // Paramètres :
+      //	pnPosition : Indice de la première ligne à supprimer
+      //	pnNombreLigne (valeur par défaut=1) : Nombre de lignes à supprimer
+      // Valeur de retour :
+      // 	booléen : VRAI si la ligne est supprimée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Ligne_Supprimer(pnPosition, pnNombreLigne=1) <redéfinition>
+      
+      // Variables locales
+      nPosition 			est un entier = pnPosition
+      nNombreLigne 		est un entier = max(pnNombreLigne,1)
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      si nPosition>=0 alors
+      	:oFeuille>>getCellByPosition(1, nPosition-1)>>Rows>>removeByIndex(0, nNombreLigne)
+      fin
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Colonne_Masquer
+     internal_properties : CAAAAAgAAAB1zy8q8pmW9B0R2aBnA3Uj1F0WnJVCaEkqZI6dzTJqCCqihVEQ4WhwikRep0lVeV2Oj041KcibF9DkCfElCw2eCaxiyMI0HUyMayiAjyChUQf6f9BymRMx3IRGj1NyZ+doDSzven/aVUgcHjLiEvrGWkJAymL5IWY+ShTJd4h9fJoaLuns/90Ilcuqt9OSElGUCX+twgOMwrDO7+Q4y8R7QOP+WlsMvpikkXGcF0Fiv31K5g==
+     procedure_id : 1683624719236947955
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Masquer ( [<sColonne> [, <bMasqué>]])
+      // Cache/Affiche une colonne
+      // Paramètres :
+      //	sColonne : indice de la colonne à cacher
+      //	bMasqué (valeur par défaut=0) : VRAI pour masquer
+      // Valeur de retour :
+      // 	booléen :  VRAI si la colonne est masquée, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Colonne_Masquer(sColonne="", bMasqué=faux)
+      
+      // Variables locales
+      pautDispatcher 	est un objet OLE dynamique
+      pautFrame		est un objet OLE dynamique
+      tabMNoArgs 		est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      SI sColonne <> "" ALORS
+      	:Cellule_Sélectionner(sColonne)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      
+      // Cache la colonne par le dispatcher
+      si bMasqué alors 
+      	pautDispatcher>>executeDispatch(pautFrame, ".uno:HideColumn", "", 0, tabMNoArgs )
+      SINON
+      	pautDispatcher>>executeDispatch(pautFrame, ".uno:ShowColumn", "", 0, tabMNoArgs )	
+      FIN
+      
+      // La copie du texte est effective
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Ligne_Masquer
+     internal_properties : CAAAAAgAAABLLRJpBcdTNg9MHxpED/BJg90MnOiNYxvPsjMgCNXPT9FcbrjzENFNWIPDlMjmnX7XujpQYNTSBJ6dyD0wgA4kLdF0+7X8iNjkzmJc5iIo+kvJOBNqu/aHwAhtBCfRZ1RVFeeREhjukkSWt+w=
+     procedure_id : 1683624719237013491
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Masquer ( [<pnLigne> [, <pbEstMasque>]])
+      // Cache/Affiche une ligne
+      // Paramètres :
+      //	pnLigne (valeur par défaut="") : indice de la ligne à cacher
+      //	pbEstMasque (valeur par défaut=0) : Visibilité de la ligne (Vrai ou Faux)
+      // Valeur de retour :
+      // 	booléen : VRAI si la ligne est masquée, FAUX dans le cas contraire
+      
+      
+      Procédure VIRTUELLE Ligne_Masquer(pnLigne = "", pbEstMasque=faux)
+      
+      // Variables locales
+      bVisible 	est un booléen = (PAS pbEstMasque)
+      nLigne 		est un entier = pnLigne
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      si nLigne>=0 alors
+      	:oFeuille>>getCellByPosition(1, nLigne-1)>>Rows>>IsVisible = bVisible
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : _ObjetActif
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683624719237079027
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] _ObjetActif ()
+      // Récupère l'instance active de OpenOffice
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :         Vrai si une instance active a été trouvée
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure PRIVE _ObjetActif()
+      
+      // Service manager nécessaire à OpenOffice
+      :_DémarrerService()
+      
+      quand exception dans
+      	// Objet actif
+      	:oDocument = :oDesktop>>getCurrentComponent()
+      	
+      	// Feuille active
+      	:oFeuille = :oDocument>>CurrentController>>ActiveSheet
+      	
+      	// Cellules sélectionnées
+      	:oPlageCellules = :oDocument>>CurrentSelection
+      	
+      	renvoyer vrai
+      	
+      faire
+      	// Aucun objet de type classeur n'a été détecté
+      	renvoyer faux
+      fin
+     type : 458752
+   -
+     name : Feuille_Nom
+     internal_properties : CAAAAAgAAAA2FZdleWubsgve1ZVzRZWvDCJtqarm5HgFtVukxyJFVf+cU3bEfevDKNHUfnz2PZoi8O872SbSuBAIdtON2mu6EQzP/Ot1eJ4zP9PSAVexPMyyebnVnEFFvAyngNT2WOqZ2Rm3LFcDY8C0P0MfArZadFIRdD1v5jKlTQcQtgvq62hZYt7jGbNNceN1OkEdWyKfp+BtGDILQ06i/xe9vzU=
+     procedure_id : 1683624719237144563
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Nom ( [<pnIndice>])
+      // Renvoie le nom de la feuille spécifiée
+      // Paramètres :
+      //	pnIndice (valeur par défaut=0) : Indice de la feuille à interroger OU vide pour obtenir le nom de la feuille active
+      // Valeur de retour :
+      // 	chaîne :    Nom de la feuille spécifiée
+      // Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Feuille_Nom(pnIndice=0)
+      
+      // Variables locales
+      sNomFeuille 	est une chaine
+      nIndiceFeuille 	est  un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER ""
+      
+      // Blindage sur l'indice max
+      nIndiceFeuille = max(val(pnIndice), :Feuille_Occurrence())
+      
+      // Blindage sur l'indice mini
+      nIndiceFeuille = max(val(pnIndice), 1)
+      
+      si pnIndice=0 ALORS
+      	// Nom de la feuille courante
+      	sNomFeuille = :oDocument>>CurrentController>>ActiveSheet>>Name
+      sinon
+      	// Nom de la feuille spécifiée
+      	sNomFeuille = :oDocument>>Sheets>>getByIndex(nIndiceFeuille-1)>>Name
+      FIN
+      
+      renvoyer sNomFeuille
+     type : 458752
+   -
+     name : _DémarrerService
+     internal_properties : CAAAAAgAAADQ/5WghtsNNiniZVaISD8cg+53x3Gm4JqRPFf23xEOjP48CC6BBI8VTL2McXKxI3VnKGAqlLq59LYv7MamdCIe3YRdcdqkbhpT4BrVoaL3PVzOz1ItQQS3tol/pOdF16KqPQ9irMyMG/y9df0CbYIDBpjHS6ZOLa40D3P21asRN+BoiWKg6BaXlXxDmQkLoTY0ub7Cssdy1nofB9xp1SRi0kJdKg==
+     procedure_id : 1683624719237210099
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //_DémarrerService ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      
+      Procédure PRIVE _DémarrerService()
+      
+      sablier(vrai)
+      
+      quand exception dans
+      	// Création d'un service OpenOffice si nécessaire
+      	:oServiceManager = allouer un objet OLE ("com.sun.star.ServiceManager")
+      	:oDesktop = :oServiceManager>>createInstance("com.sun.star.frame.Desktop")
+      faire
+      	finprogramme("OpenOffice n'est pas installé sur votre poste.", "OpenOffice est nécessaire pour que cet exemple fonctionne.")
+      fin
+      
+      sablier(faux)
+     type : 458752
+   -
+     name : Enregistrer
+     internal_properties : CAAAAAgAAACqMMu5Uwoud70CV1JIZLcgmXwuelJg5eT+QyfsdzQ5oyYzVYqgMcSID+zIwBly5DNN8SUkhCToaNPUkt8+hyznp3ITOm3/Yd6xeRHJS+aV3hvUO61u53Qi4GWvnFXGxspJCYmXfNmlRe7EP8OjTnftF/4rmiz1yPQawhFGROZokc3yM70GocrkI7MF7OBal6BRg7VAo1ImpTld44AkrATjJFfYPMVFZsEjnoOEh+qCueFNTFFT7Nqa0XHQSFAnXQ==
+     procedure_id : 1683624719237275635
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //[ <Résultat> = ] Enregistrer ()
+      // Enregistrer le document courant
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :   VRAI si l'enregistrement est effectif, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Enregistrer()
+      
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Définit la propriété
+      tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      tabPropriete[1]>>Name 	= "SelectionOnly"
+      tabPropriete[1]>>Value 	= True
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Sauvegarde par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:Save", "", 0, tabPropriete)
+      
+      RENVOYeR VRAi
+     type : 458752
+   -
+     name : EnregistrerSous
+     internal_properties : CAAAAAgAAAAOL3UdVHQTDnMtihw2fSEptWNkMrI6GSjJcdV59Hv9/F023TDiHlvfMuMUnJIElf3PVMNDLZb8yZczG5LZGqukx0JiM25GcoZ1OKWXAzWPYntnJRSG+11qa+knlhoLLKrFpt8YwzSNRnX/Facnq2MlO7/Dq3PE9m0h7ZFeFFnCsb23YTa5RN0IqF5BuQxv66bxqEZIHezTJSbB1cxcxcXEecFN
+     procedure_id : 1683624719237341171
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] EnregistrerSous ( [<psCheminComplet>])
+      // Enregistrer un document
+      // Paramètres :
+      //	psCheminComplet : Chemin complet du fichier à enregistrer ou chaîne vide pour ouvrir le sélecteur
+      // Valeur de retour :
+      // 	booléen :  VRAI si l'enregistrement est effectif, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE EnregistrerSous(psCheminComplet="")
+      
+      // Variables locales
+      mNoArgs 		est un tableau de 0 variant
+      sNomClasseur 	est une chaine
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      
+      si psCheminComplet<>"" ALORS
+      	sNomClasseur = psCheminComplet
+      sinon
+      	sNomClasseur = fSélecteur("", "", "Sélectionnez un classeur...", "Classeur OpenOffice (*.ods)"+tab+"*.ods"+rc+"Openoffice.org Classeur (*.sxc)"+TAB+"*.sxc", "*.ods", fSelCrée)
+      	si sNomClasseur="" alors renvoyer faux
+      fin
+      
+      // Formatage du chemin du fichier
+      sNomClasseur = "file:///"+remplace(sNomClasseur,"\","/")
+      
+      // Enregistrement du document
+      :oDocument>>storeToURL(sNomClasseur, mNoArgs)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : FermerClasseur
+     internal_properties : CAAAAAgAAABvSX61oWMh8vsAO864Q6C5X4EkMPhRg2cT/k+khNHH5yWIjmxrdGnhrC8/8FTipc5D/lKcgLhgskgXnsOS3pz+F9/icU8SLn7e+GiCyND2xBU3Jhl8qbw9ivqL0vEXpU6P471vbLyKLiCyUwg=
+     procedure_id : 1683624719237406707
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] FermerClasseur ()
+      // Ferme le document actif
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si le document a bien été fermé, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE FermerClasseur()
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      :oDocument>>Dispose()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Imprimer
+     internal_properties : CAAAAAgAAACPnFtI7YK/9cFu/oRWjhS4syumAUYeisEdT7DpnSSPI9DpJr7G8jAoa/fvWyk4cH95ZbUrktYVMQDEbW6ZyIUoe2DheSn8ti8x/8W4/niWMdtQCFjApVupTLuAW/KKnMXP+gxT3QOzALHqqIJvGF9u6z0ghD91VlG7Yt5hpjIucFc5GJshw/Y/KqmQp1xgI61BTJe9OceluRlWL6xNyd+19WVRnY+XrEqMtrCZh2ntQeq1YlU=
+     procedure_id : 1683624719237472243
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Imprimer ( [<nNbCopies> [, <sListePage> est chaîne]])
+      //
+      // Paramètres :
+      //	nNbCopies (valeur par défaut=1) : < indiquez ici le rôle de nNbCopies >
+      //	sListePage (chaîne - valeur par défaut="") : <indiquez ici le rôle de nNumeroPäge>
+      // Valeur de retour :
+      // 	booléen :   VRAI si l'impression est effective, FAUX dans le cas contraire
+      
+      Procédure VIRTUELLE Imprimer(nNbCopies=1,sListePage est une chaine = "") <redéfinition>
+      
+      // Paramétrage de l'impression
+      ParamImpression est un tableau de 1 objet Automation dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Nombre de copies du document
+      ParamImpression[1] = :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      ParamImpression[1]>>Name = "CopyCount"
+      ParamImpression[1]>>Value = nNbCopies
+      
+      // Pages imprimées
+      Si sListePage<>"" alors
+      	TableauAjoute(ParamImpression)
+      	ParamImpression[2] =  :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	ParamImpression[2]>>Name = "Pages"
+      	ParamImpression[2]>>Value = sListePage
+      Fin
+      
+      // Impression effective
+      :oDocument>>print(ParamImpression)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Modifié
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683624719237537779
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Modifié ()
+      // Indique si le document a été modifié
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Type indéterminé : Vrai si le document a été modifié
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Modifié()
+      
+      renvoyer :oDocument>>isModified
+     type : 458752
+   -
+     name : Cellule_Type
+     internal_properties : CAAAAAgAAABHMQaNqboIsvuAO474g2A5X0Ek8LiRQ+fTvg+kBFFHJ2UITmxrdOkhrK8/MJSiZU5DvtLcwHjAEmi3/uOyPjzeNz/CEW9yDl7+mEii6DAWpLWXhrkcCRydqhprcpF3xS6vQ50PjEOCJiiKu+A=
+     procedure_id : 1683624719237603315
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Type (<psCellule>)
+      // Renvoie le type d'une cellule (vide, valeur, texte, formule)
+      // Paramètres :
+      //	psCellule : Cellule à interroger
+      // Valeur de retour :
+      // 	Type indéterminé :                une des valeurs suivantes :
+      // 0 : VIDE
+      // 1 : VALEUR
+      // 2 : TEXTE
+      // 3 : FORMULE
+      Procédure VIRTUELLE Cellule_Type(psCellule)
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // S'il ne s'agit pas d'une adresse de cellule, rien n'est fait
+      si VérifieExpressionRégulière(psCellule, "[a-zA-Z]+[0-9]+") = faux ALORS
+      	renvoyer ""
+      FIN
+      
+      SELON :oFeuille>>getCellRangeByName(psCellule)>>Type
+      	CAS 0 : RENVOYER "VIDE"	
+      	CAS 1 : RENVOYER "VALEUR"	
+      	CAS 2 : RENVOYER "TEXTE"
+      	CAS 3 : RENVOYER "FORMULE"		
+      FIN
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : Colonne_Trier
+     internal_properties : CAAAAAgAAACtl9X+k4MmAu+sQy1VyijRPbXKrFtYdCxwTNyoayBAnjTQA2TmSRbUbn4mlUWh8YMyhfSro4AJX5CyeUdhR3VkyRaodhxwj1DwReDOl4it84sowTIMgRkh7APbBND32FwfUB2cT1x9hl2Xn4s7m3M/3clFy9NawNeTSRnWTA2mJRV1N55JpHiFZvqnfFivPxfa101fnLG+5Ud/Dv4k58x1DDkJVXv9WSriUCRVTl64jaVyng==
+     procedure_id : 1683624719237668851
+     type_code : 12
+     code : |1-
+      // Résumé : Tri une colonne donnée
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Trier ( [<sColonne> [, <sOrdre>]])
+      //
+      // Paramètres :
+      //	sColonne : Colonne à trier
+      //	sOrdre (valeur par défaut="ASC") : Sens du tri
+      // Valeur de retour :
+      // 	booléen :  VRAI si le tri est effectuée, FAUX dans le cas contraire
+      //
+      Procédure VIRTUELLE Colonne_Trier(sColonne="", sOrdre="ASC")
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabMNoArgs 			est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      SI sColonne <> "" ALORS
+      	:Cellule_Sélectionner(sColonne)
+      FIN
+      
+      // Instance de Dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      selon sOrdre
+      	CAS "ASC"
+      		// Tri par le dispatcher
+      		pautDispatcher>>executeDispatch(pautFrame, ".uno:SortAscending", "", 0, tabMNoArgs)	
+      		
+      	CAS "DESC"
+      		// Tri par le dispatcher
+      		pautDispatcher>>executeDispatch(pautFrame, ".uno:SortDescending", "", 0, tabMNoArgs)		
+      		
+      	AUTRE CAS
+      		dbgassertion(faux,"Le type de tri n'est pas connu")
+      		renvoyer faux
+      FIN
+      
+      // Le tri de la colonne est effectif
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Copier
+     internal_properties : CAAAAAgAAADdtlNdvpI7WcjkfhYgdY2AoX/TrhHsNSYW7z5o7pIfV9Mf/iow0zGnjKEQNV6ouc/uVhY0LgH2ZMn54Vj2KYDFNkEDuPC5pDgv0fiB1zkJ/iwG2wMYQ+zY0pe5mMtCVAGO0MBQ3Qauth8not6CYzHt6c+W35AF9lxRSd/arMFEq48OD4ZoYqmbqrfTXlWaSptflzzu12EIQNXbff6tr07FxC0njQEFporJ48Ao2d5y5UcCKdq1cquhP01Mw+BQqg==
+     procedure_id : 1683624719237734387
+     type_code : 12
+     code : |1-
+      // Résumé : Copie le contenu de la cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Copier ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Cellule à copier
+      // Valeur de retour :
+      // 	booléen :           VRAI si la copie a été effectué
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Copier(sPlage="")
+      
+      // Variables locales
+      pautDispatcher 	est un objet OLE dynamique
+      pautFrame		est un objet OLE dynamique
+      tabMNoArgs 		est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Copie par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:Copy", "", 0, tabMNoArgs )
+      
+      // La copie du texte est effective
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Coller
+     internal_properties : CAAAAAgAAADdtlNdvpI7WcjkfhYgdY2AoX/TrhHsNSYW7z5o7pIfV9Mf/iow0zGnjKEQNV6ouc/uVhY0LgH2ZMn54Vj2KYDFNkEDuPC5pDgv0fiB1zkJ/iwG2wMYQ+zY0pe5mMtCVAGO0MBQ3Qauth8not6CYzHt6c+W35AF9lxRSd/arMFEq48OD4ZoYqmbqrfTXlWaSptflzzu12EIQNXbff6tr07FxC0njQEFporJ48Ao2d5y5UcCKdq1cquhP01Mw+BQqg==
+     procedure_id : 1683624719237799923
+     type_code : 12
+     code : |1-
+      // Résumé : Coller le contenu dans une cellule donné
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Coller ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Cellule où copier le contenu
+      // Valeur de retour :
+      // 	booléen :      VRAI si le Coller a été effectué, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Coller(sPlage="")
+      
+      // Variables locales
+      pautDispatcher 	est un objet OLE dynamique
+      pautFrame		est un objet OLE dynamique
+      tabMNoArgs 		est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Collage par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:Paste", "", 0, tabMNoArgs )
+      
+      // La colle du texte est effective
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Couper
+     internal_properties : CAAAAAgAAADdtlNdvpI7WcjkfhYgdY2AoX/TrhHsNSYW7z5o7pIfV9Mf/iow0zGnjKEQNV6ouc/uVhY0LgH2ZMn54Vj2KYDFNkEDuPC5pDgv0fiB1zkJ/iwG2wMYQ+zY0pe5mMtCVAGO0MBQ3Qauth8not6CYzHt6c+W35AF9lxRSd/arMFEq48OD4ZoYqmbqrfTXlWaSptflzzu12EIQNXbff6tr07FxC0njQEFporJ48Ao2d5y5UcCKdq1cquhP01Mw+BQqg==
+     procedure_id : 1683624719237865459
+     type_code : 12
+     code : |1-
+      // Résumé : Coupe le contenu de la cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Couper ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Cellule à couper
+      // Valeur de retour :
+      // 	booléen : VRAI si le Couper a été effectué, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Couper(sPlage="")
+      
+      // Variables locales
+      pautDispatcher 	est un objet OLE dynamique
+      pautFrame		est un objet OLE dynamique
+      tabMNoArgs 		est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Colle par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:Cut", "", 0, tabMNoArgs )
+      
+      // La coupe du texte est effective
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Fusionner
+     internal_properties : CAAAAAgAAADmXqG/Lnk8IjNlTW2RxP2kqzf0KqpaXf7mjatLuHCIpsomVHLNyaLEcX3Eu2+nkE5l3VbkmUWsIwMLDVHzR220ZbV3YLvVjBiFVcR/6IbBXJWYABflNrx08+NR0ynsTV/vrgO1ZGLkpLXctMiN/2i5gixWTcOT+8F9THvtlVaY/3+JzlEJnTn73YP8ZI0uocUYlmy8gtX9s7IbAzjCKRelF8hxSXcxlj12tOWFJP3+TNey1Clr9hZfE2K44TWS
+     procedure_id : 1683624719237930995
+     type_code : 12
+     code : |1-
+      // Résumé : Fusionne des cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Fusionner ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Plage de cellule à fusionner
+      // Valeur de retour :
+      // 	booléen : VRAI si la fusion est effective, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Fusionner(sPlage="")
+      
+      // Variables locales
+      pautDispatcher 	est un objet OLE dynamique
+      pautFrame		est un objet OLE dynamique
+      tabMNoArgs 		est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage<>"" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Colle par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:ToggleMergeCells", "", 0, tabMNoArgs )
+      
+      // La fusion est effective
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_Occurrence
+     procedure_id : 1683624719237996531
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Occurrence ()
+      // Nombre de feuilles du classeur
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Type indéterminé :    Nombre de feuilles du classeur
+      
+      Procédure VIRTUELLE Feuille_Occurrence()
+      
+      renvoyer :oDocument>>Sheets>>count()
+     type : 458752
+   -
+     name : Cellule_Format
+     internal_properties : CAAAAAgAAADvV7FhUmQVVpWOJ35sCcNKkmKz6/g8Ug8mWKaBqfezUtp+UO2jfFLapftro1jLqMQF817rKKN7D7rlKHEUISJiycpUk/v9N3ifvLGIEAp1eKvvOkD1NpzUQ9MRs2nsrcdnJhu9bBo8fK30RwU9zT6T4Lq7PdBaegWXcG49wF9bQ/e+0//1DFKny2gw5s8uMXv8b7U2thnHjbOCS5ymraeQGVEm9a6GkR6M66jGbYsI6lSAYxaJ9kJUByki6Dyb
+     procedure_id : 1683624719238062067
+     type_code : 12
+     code : |1-
+      // Résumé : Formate une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Format (<sFormatCellule> [, <sPlage>])
+      //
+      // Paramètres :
+      //	sFormatCellule : Format de la cellule NOMBRE, DATE, HEURE, MONETAIRE, POURCENTAGE
+      //	sPlage : Plage de cellule
+      // Valeur de retour :
+      // 	booléen :  VRAI si le format a été placé, FAUX dans le cas contraire
+      //
+      Procédure VIRTUELLE Cellule_Format(sFormatCellule, sPlage="")
+      
+      // Variables locales
+      pautDispatcher		est un OLE dynamique
+      pautFrame			est un OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      nValeur				est un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellule
+      si sPlage <> "" alors
+      	:Cellule_Selectionner(sPlage)
+      FIN
+      
+      // Selon le format demandé, mémorise la valeur de la propriété "NumberFormatValue"
+      selon majuscule(sFormatCellule)
+      	// Nombre
+      	cas "NOMBRE" :		nValeur = ::cst_Format_Nombre
+      	// Date (au format JJ/MM/AAAA)
+      	cas "DATE" :			nValeur = ::cst_Format_Date 
+      	// Heure
+      	cas "HEURE" : 		nValeur = ::cst_Format_Heure
+      	// Pourcentage
+      	cas "POURCENTAGE" : nValeur = ::cst_Format_Pourcentage
+      	// Monétaire
+      	CAS "MONETAIRE" :	nValeur = ::cst_Format_Monetaire
+      	// Scientifique
+      	CAS "SCIENTIFIQUE" : 	nValeur = ::cst_Format_Scientifique
+      	// Fraction
+      	CAS "FRACTION" : 	nValeur = ::cst_Format_Fraction
+      	// Texte
+      	CAS "TEXTE" : 		nValeur = ::cst_Format_Texte
+      	// Autre, Ne rien faire
+      	autre cas :			dbgassertion(faux,"Le format de cellule spécifié n'est pas géré")
+      fin
+      
+      // Définit la propriété "Format"
+      tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      tabPropriete[1]>>Name 	= "NumberFormatValue"
+      tabPropriete[1]>>Value 	= nValeur
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Changement de format par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:NumberFormatValue", "", 0, tabPropriete)
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Feuille_AjouterSelection
+     internal_properties : CAAAAAgAAADdFH5UY8XsKhiMNtoxBZQqZWAXgvnkd+0iNw4ZsncBoH9Ofua3LT7RM6Amjy8gLzz1/9a69yR3/biF3ehUDkmIsChBaK1tZdzJYFIPq8ac5ZlzsEx6925JA+yAqw+Ezh9HYzpAq/kA+/FsqatKCUewmjfFre/dihtxzCBfWMuG/lBaLJhnWgWEOjQ2Y2uu/lwOD9XUADEUmdPo+FENpZtgYb1m3YK1lMcrFtXswFnz5EZZAUXplWoFMNf7VtpaWkQLEhS1gjECmGX3BY4=
+     procedure_id : 1683624719238127603
+     type_code : 12
+     code : |1-
+      // Résumé : Ajoute une feuille à la sélection
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_AjouterSelection (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Indice de la feuille a ajouter
+      // Valeur de retour :
+      // 	booléen :          VRAI si la feuille est ajoutée à la sélection
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_AjouterSelection(nIndice)
+      
+      // Variables locales
+      pautDispatcher		est un OLE dynamique
+      pautFrame			est un OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Ajoute la feuille à la liste des feuilles sélectionnées
+      TableauAjoute (:m_nTabFeuillesSélectionnées, nIndice-1)
+      
+      // Définit la propriété pour la sélection de la feuille
+      tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      tabPropriete[1]>>Name 	= "Tables"
+      tabPropriete[1]>>Value 	= :m_nTabFeuillesSélectionnées
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Changement de format par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:SelectTables", "", 0, tabPropriete)
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : ApercuAvantImpression
+     internal_properties : CAAAAAgAAAC07F9NiFueiLlDO0dfwpvyMb0iyNR4x7wEK2GN5gZubKgkAlE3aRpI5bnydd1vMIYhie7Uc70odwcPr/sJfz1kNfXH2BEBjORRuY61ujoJhMGUPKuTMnx44/uHrReEFYqq6daaD7X/iVwT/bdEdvW0geuVhgK6CtZEk0hoEMkpjvYANfbcwERMYAYJ3zRVOswDQccpeSRkEP2mlaYIEw0vgWrTP4X7hOOIRo+b+se09mGMLicBMDQFcQDGk+fA
+     procedure_id : 1683624719238193139
+     type_code : 12
+     code : |1-
+      // Résumé : Lance l'aperçu avant impression
+      // Syntaxe :
+      //[ <Résultat> = ] ApercuAvantImpression ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :   VRAI si l’aperçu est affiché, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE ApercuAvantImpression()
+      
+      // Variables locales
+      
+      // Variables locales
+      pautDispatcher 		est un objet OLE dynamique
+      pautFrame			est un objet OLE dynamique
+      tabMNoArgs 			est un tableau de 0 variant
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Instance de Dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      
+      // "Aperçu avant impression" par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:PrintPreview", "", 0, tabMNoArgs)	
+      
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : EstOuvert
+     procedure_id : 1683624719238258675
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //[ <Résultat> = ] EstOuvert ()
+      // Permet de vérifier si le classeur est bien toujours ouvert
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :     Vrai si le classeur est ouvert
+      
+      Procédure virtuelle EstOuvert()
+      
+      quand exception dans
+      	// tentative d'accès à la feuille active du classeur
+      	:oDocument>>CurrentController>>ActiveSheet
+      	renvoyer vrai
+      FAIRE
+      	liberer :oDocument
+      	liberer :oPlageCellules
+      	liberer :ofeuille
+      	renvoyer faux
+      FIN
+     type : 458752
+   -
+     name : ObjetActif
+     internal_properties : CAAAAAgAAACrkXUtzQkVfw35ULtOce8kzET7Xzhv8HeSdiS18ZW1JL2nxQakICQ3Hgp0erC5YEfk71eCZtHFDVesdBTOUnnSU+LBsJz3nWDXa27U5iWO30U83SW2ZK/m9wN5JV8BZ3bWORNVWJexFSfRZT2JjVQDZ3RmR6FboulIQaEJjkQEAX1Y9hWVUvmMNC7J4xYPqsk/aZOkt4CejIBXgR+rjgxiGkH9ezYqzU3APERp1y/4T8gKpy3vi3RbgUv9hX4vmpa1Fd5T3CrRdilFASyH3nX5IdBOz+lVHkFadjVJ1y6Cq7qRkfEqHC/OkGqIEuTH2xJMqezQwXs6TaKiephw6/Uf+OVPzXD5kgcSKRKdghV4QjLqj9M5qwdHLkoGqCpaRIc=
+     procedure_id : 1683624719238324211
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] ObjetActif ()
+      // Récupère l'instance active de OpenOffice
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :  Vrai si une instance active a été trouvée
+      
+      Procédure ObjetActif()
+      
+      // Service manager nécessaire à OpenOffice
+      :_DémarrerService()
+      
+      quand exception dans
+      	// Objet actif
+      	:oDocument = :oDesktop>>getCurrentComponent()
+      	
+      	// Feuille active
+      	:oFeuille = :oDocument>>CurrentController>>ActiveSheet
+      	
+      	// Cellules sélectionnées
+      	:oPlageCellules = :oDocument>>CurrentSelection
+      	
+      	renvoyer vrai
+      	
+      faire
+      	// Aucun objet de type classeur n'a été détecté
+      	renvoyer faux
+      fin
+     type : 458752
+   -
+     name : Feuille_SelectionnerParIndice
+     internal_properties : CAAAAAgAAAAAHhnd1C7TBIMApfDiFBVuLH2gYzzVXkZnJKLFvek3kXFgwuqvD9KkYrjf4ycdckOlCZOq+d90xfqJH0G32kXL3UdbyESWkEGF+V03dQYMIoS88LZiJNbPbsB04o5ujbz1Hr5BI2AjDPj10cST9/vuZIei/oPNlDuuuzJdF9KRdjFs3nIhz9x/kLQpysnk/BLo3UiheJN2RSfub0td/EC/8/Nx6v+Hc/nrkxE49wogzkIWOSHSlRj+QSpxp5iG3S4F7OJ4Vmt/u8Vz/w==
+     procedure_id : 1683624719238389747
+     type_code : 12
+     code : |1+
+      // Résumé : Sélectionne une feuille par son indice
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_SelectionnerParIndice (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Indice de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen :        Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_SelectionnerParIndice(nIndice)
+      
+      // Variables locales
+      nIndiceReel			est un entier = nIndice-1 // OOcal compte à partir de 0
+      
+      pautDispatcher		est un OLE dynamique
+      pautFrame			est un OLE dynamique
+      tabPropriete 		est un tableau de 1 objet Automation dynamique
+      tabValeur			est un tableau de 1 entier
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Indice valide ?
+      si nIndice<0 ou nIndice > :Feuille_Occurrence() ALORS
+      	renvoyer faux
+      FIN
+      
+      // Définit l'indice
+      tabValeur[1] = nIndiceReel
+      
+      // Définit la propriété "Format"
+      tabPropriete[1] 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      tabPropriete[1]>>Name 	= "Tables"
+      tabPropriete[1]>>Value 	= tabValeur
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Changement de format par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:SelectTables", "", 0, tabPropriete)
+      
+      
+      // Vide le tableau des feuilles sélectionnées
+      TableauSupprimeTout(:m_nTabFeuillesSélectionnées)
+      // Ajoute l'indice de cette feuille
+      TableauAjoute(:m_nTabFeuillesSélectionnées,nIndiceReel)
+      
+      renvoyer vrai 
+     type : 458752
+   -
+     name : _bDetection
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683624719238455283
+     type_code : 12
+     code : |1-
+      // Résumé : Indique si le produit OOCalc est présent sur le poste en cours
+      // Syntaxe :
+      //[ <Résultat> = ] _bDetection ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :        VRAI si OOCalc est présent sur la machine, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure GLObALE _bDetection()
+      
+      // Variables locales
+      sCle		est une chaine
+      
+      
+      // Teste la présence de OpenOffice sur le poste
+      sCle = registreexiste("HKEY_LOCAL_MACHINE\SOFTWARE\OpenOffice.org\UNO\InstallPath")
+      
+      // Si OpenOffice n'est pas présent sur la machine, OOCalc n'est pas présent
+      RENVOYER (sCle <> "")
+     type : 458752
+   -
+     name : Cellule_Bordure
+     internal_properties : CAAAAAgAAAAPbZ9Vwer5MZgBj10Dl2fJsDIn4IcB4MG9VdklX0VFosCWll1S4Q3j/euWeyWOUdFkf3Yfn9dCruZIZPDa8zfJ1cJR4q/jP/YCjg5ZLZKRDO6Kz8VZcKoGovR3/E3FjM/2fNKu9psknBilhetQ54boQPNrSoTYrxIOCtJF/LWAobEr8uIuU78PSo4kNLlJlIofAFx4uN4hxZUVX5DVjNGSI6+GJTQQZsQ7L+ndV0s+3DpB79z3cwcdTmGQr2IJz5XYoDhv+roN1GAuQyHYCL+fbAiQqKzqUuCp39ILJVqfL0g/iZTLmVGOMRcA6OiCHM1SunRV20QxiQuq3IhOZfVXU8jdQKaa1T3oLFpAhA==
+     procedure_id : 1687290241680962779
+     type_code : 12
+     code : |1-
+      // Résumé : Encadre une cellule ou plage de cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Bordure ( [<sPlage> [, <nBordure> [, <nEpaisseur> [, <nCouleur>]]]])
+      //
+      // Paramètres :
+      //	sPlage : Plage de cellule à encadrer
+      //	nBordure (valeur par défaut=1) : Bordure à dessiner (cf les constantes)
+      //	nEpaisseur (valeur par défaut=1) : Style de la bordure
+      //	nCouleur (valeur par défaut=0) : Couleur du cadre
+      // Valeur de retour :
+      // 	booléen :   VRAI si la bordure a été appliquée, FAUX dans le cas contraire
+      //
+      Procédure VIRTuELLE Cellule_Bordure(sPlage="", nBordure=::cnToutesBordures, nEpaisseur=1, nCouleur=0)
+      
+      // Variables locales
+      pautDispatcher				est un OLE dynamique
+      pautFrame					est un OLE dynamique
+      pautTrait					est un OLE dynamique
+      pautPropriete				est un OLE dynamique
+      tabPropriete				est un tableau de 0 objet Automation dynamique
+      tabArgs				 		est un tableau de 0 variant
+      
+      
+      nEpaisseurTrait_In_Reelle	est un entier
+      nEpaisseurTrait_Out_Reelle	est un entier
+      nCouleur_Reelle				est un entier
+      nDistance_Reelle			est un entier
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellule
+      SI sPlage <> "" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Définit la couleur et l'épaisseur
+      nCouleur_Reelle 			= :_ConversionCouleur(nCouleur)
+      nEpaisseurTrait_In_Reelle 	= nEpaisseur*30
+      nEpaisseurTrait_Out_Reelle 	= 0
+      
+      // Diagonales ?
+      SI nBordure DANS ( ::cnBordureDiagonaleDescendante ,::cnBordureDiagonaleMontante) ALORS 
+      	// Définit le trait
+      	pautTrait  					=:oServiceManager>>Bridge_GetStruct("com.sun.star.table.BorderLine")
+      	pautTrait>>Color 			= nCouleur_Reelle 
+      	pautTrait>>OuterLineWidth 	= nEpaisseurTrait_In_Reelle
+      	
+      	// Diagonale HautBas (Coin HautGauche vers Coin BasDroit)
+      	SI nBordure = ::cnBordureDiagonaleDescendante 	ALORS :oPlageCellules>>DiagonalTLBR = pautTrait
+      	// Diagonale BasHaut (Coin BasGauche vers Coin HautDroit)
+      	SI nBordure = ::cnBordureDiagonaleMontante 		ALORS :oPlageCellules>>DiagonalBLTR = pautTrait
+      	
+      	renvoyer vrai
+      FIN
+      
+      // Définit la valeur des propriétés
+      tableauajoute(tabArgs,nCouleur_Reelle)
+      TableauAjoute(tabArgs,nEpaisseurTrait_Out_Reelle)
+      TableauAjoute(tabArgs,nEpaisseurTrait_In_Reelle)
+      TableauAjoute(tabArgs,nDistance_Reelle)
+      
+      // Définit les propriétés de bordure
+      SI nBordure DANS (::cnToutesBordures,::cnBordureGauche) ALORS
+      	
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.LeftBorder"
+      	pautPropriete>>Value 	= tabArgs 
+      	tableauajoute(tabPropriete,pautPropriete)
+      	
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.LeftDistance"
+      	pautPropriete>>Value 	= tabArgs 
+      	TableauAjoute(tabPropriete,pautPropriete)
+      FIN
+      SI nBordure DANS (::cnToutesBordures,::cnBordureDroite) ALORS	
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.RightBorder"
+      	pautPropriete>>Value 	= tabArgs
+      	TableauAjoute(tabPropriete,pautPropriete)
+      	
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.RightDistance"
+      	pautPropriete>>Value 	= tabArgs
+      	TableauAjoute(tabPropriete,pautPropriete)
+      FIN
+      SI nBordure DANS (::cnToutesBordures,::cnBordureHaut) ALORS
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.TopBorder"
+      	pautPropriete>>Value 	= tabArgs
+      	TableauAjoute(tabPropriete,pautPropriete)
+      	
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.TopDistance"
+      	pautPropriete>>Value 	= tabArgs
+      	TableauAjoute(tabPropriete,pautPropriete)
+      FIN
+      SI nBordure DANS (::cnToutesBordures,::cnBordureBas) ALORS
+      	pautPropriete 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.BottomBorder"
+      	pautPropriete>>Value 	= tabArgs
+      	TableauAjoute(tabPropriete,pautPropriete)
+      	
+      	pautPropriete	 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.beans.PropertyValue")
+      	pautPropriete>>Name 	= "BorderOuter.BottomDistance"
+      	pautPropriete>>Value 	= tabArgs	
+      	TableauAjoute(tabPropriete,pautPropriete)
+      FIN
+      
+      // Instance de dispatcher
+      pautDispatcher 	= :oServiceManager>>createInstance("com.sun.star.frame.DispatchHelper")
+      // Frame
+      pautFrame 		= :oDocument>>getCurrentController()>>getFrame()
+      
+      // Changement de format par le dispatcher
+      pautDispatcher>>executeDispatch(pautFrame, ".uno:BorderOuter", "", 0, tabPropriete)
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Motif
+     internal_properties : CAAAAAgAAADQEXqT2vSR72jVadLlheS/B6gMAhqa3rVMVwsnoZB1XnucV8PpF2JIKo8+2S3835e/NW71nonBael6U20N4/jT0lAMhHm3wkPomtgArKvbp7U2Tk1UsXS6vzZrTTOH5suHo6owa1kIk9mUsbO+BRhBW7sn9+Doh2wr8J3iGdM7zr2Z0VYGMifCZKE90kehzC8uPe6+OG2BiTTrhxzF3Rdi9fGrMT2mCdJBVwhrIxrHA/8590PeKFixBRKfai8NhScI+hsMCKzWblnyAIs=
+     procedure_id : 1687323579499996522
+     type_code : 12
+     code : |1-
+      // Résumé : Permet de modifier le style de motif d'une cellule ou d'une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Motif ( [<sPlage> [, <nStyleMotif> [, <nCouleur>]]])
+      //
+      // Paramètres :
+      //	sPlage : Plage à modifier
+      //	nStyleMotif (valeur par défaut=13) : Style du motif à appliquer (cf les constantes)
+      //	nCouleur : Couleur du motif
+      // Valeur de retour :
+      // 	booléen :  VRAI si les motifs ont été positionnées, FAUX dans le cas contraire
+      //
+      // ATTENTION : l'application de motif (hachure, ...) sur une cellule n'existe pas sous OpenOfficeCalc (elle existe par contre pour des objets graphiques)
+      // Ces motifs sont ici simulés par un rectangle qui prend les dimensions de la plage de cellule et sur lequel on applique le motif souhaité.
+      //
+      Procédure VIRTUELLE Cellule_Motif(sPlage="", nStyleMotif=::cnMotifDiagonaleBas, nCouleur=rvb(60,60,60))
+      
+      // Variables locales
+      pautPoint					est un objet OLE dynamique
+      pautSize	 				est un objet OLE dynamique
+      pautDrawPage				est un objet OLE dynamique
+      pautRectangle				est un objet OLE dynamique
+      pautHatch					est un objet OLE dynamique
+      
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélection de la plage de cellules
+      SI sPlage <> "" ALORS
+      	:Cellule_Sélectionner(sPlage)
+      FIN
+      
+      // Insertion d'une Forme, qui servira de support au motif (hachure, ...)
+      // Page de dessin
+      pautDrawPage 		= :oFeuille>>DrawPage
+      
+      // Rectangle
+      pautRectangle 		= :oDocument>>createInstance("com.sun.star.drawing.RectangleShape") 
+      
+      // Point de départ Coin Haut-Gauche de la cellule
+      pautPoint 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.awt.Point")
+      pautPoint>>X 		= :oPlageCellules>>Position>>X
+      pautPoint>>Y 		= :oPlageCellules>>Position>>Y
+      
+      // Les dimensions dépendent de la plage de sélection actuelle
+      pautSize 			= :oServiceManager>>Bridge_GetStruct("com.sun.star.awt.Size")
+      pautSize>>Width 	= :oPlageCellules>>Size>>Width
+      pautSize>>Height 	= :oPlageCellules>>Size>>Height
+      
+      // Dimension
+      pautRectangle>>Size 			= pautSize
+      // Position
+      pautRectangle>>Position    		= pautPoint
+      
+      // Il faut passer le rectangle en transparent
+      pautRectangle>>FillTransparence	= 50
+      pautRectangle>>FillColor		= RVB(125,125,125)
+      // Ajout de la ligne à la page de dessin
+      pautDrawPage>>add(pautRectangle) 
+      
+      // Définit la hachure
+      pautHatch 						= :oServiceManager>>Bridge_GetStruct("com.sun.star.drawing.Hatch")
+      pautRectangle>>FillStyle		= ::cnFillStyleHachure
+      pautHatch>>Style				= ::cnFillStyle_Simple
+      pautHatch>>Distance 			= 100
+      		
+      // Selon le motif désiré
+      selon nStyleMotif
+      		
+      	CAS ::cnMotifHorizontal
+      		pautHatch>>Angle 	= 0
+      		
+      	CAS ::cnMotifVertical
+      		pautHatch>>Angle 	= 900
+      	
+      	CAS ::cnMotifDiagonaleBas
+      		pautHatch>>Angle 	= -450
+      		
+      	CAS ::cnMotifDiagonaleHaut
+      		pautHatch>>Angle 	= 450
+      		
+      	CAS ::cnMotifGrille 			
+      		pautHatch>>Style	= ::cnFillStyle_Double
+      		pautHatch>>Angle 	= 0
+      		
+      	CAS ::cnMotifCrissCross 		
+      		pautHatch>>Style	= ::cnFillStyle_Double
+      		pautHatch>>Angle 	= 450
+      FIN
+      // Mémorise la couleur pour les motifs
+      pautHatch>>Color				= :_ConversionCouleur(nCouleur)
+      
+      // Mémorise la hachure
+      pautRectangle>>FillHatch		= pautHatch
+      
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_DessinerTrait
+     internal_properties : CAAAAAgAAACTu8MumCYe/5YyGGUQpmUMl/p8N1UjiTMF3W06r39cuMl3LKDV/mTdqPy48mOGQ/QefyVbg4BVgV52UtsyjQqm+troHQ6F4PFd1bBGq5Iaxi+TRjtPp3U3mVSEVfj0eLoV67bQduOAJZe+AhglWjXrfOKygZMgsO2hLK3taUnfYZe9yiHHa9nnI8E4Yo8HBYkbfj8NVz8QofPYtpUD/OgXlc+lP+1duNdltLvYAwFAyl9iJVw+NX3Ea04H/zPAyliw7cpE0SnW5GaEiF5XQKFGu3OvHW9OZ2Vy5tXw1zjfUwx+QLA91Ww7QQsRR/+m
+     procedure_id : 1687349142945380265
+     type_code : 12
+     code : |1-
+      // Résumé : Dessine un objet dans la feuille spécifiée en paramètre
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_DessinerTrait (<X1>, <Y1>, <X2>, <Y2> [, <nEpaisseur> [, <nCouleur> [, <sNomFeuille>]]])
+      //
+      // Paramètres :
+      //	X1 : Coordonnées X de départ
+      //	Y1 : Coordonnées Y de départ
+      //	X2 : Coordonnées X de fin
+      //	Y2 : Coordonnées Y de fin
+      //	nEpaisseur (valeur par défaut=1) : Epaisseur du trait
+      //	nCouleur (valeur par défaut=0) : Couleur du trait
+      //	sNomFeuille : Nom de la feuille où dessiner
+      // Valeur de retour :
+      // 	booléen : VRAI si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_DessinerTrait(X1, Y1, X2, Y2, nEpaisseur= 1 , nCouleur = 0, sNomFeuille="")
+      
+      // Variables locales
+      pautUneLigne				est un objet OLE dynamique
+      pautPointStart				est un objet OLE dynamique
+      pautSize					est un objet OLE dynamique
+      pautDrawPage				est un objet OLE dynamique
+      //tabPoint					est un tableau de 2 objets OLE dynamique
+      
+      // Y-a-t-il bien un document actif ?
+      SI :EstOuvert()=Faux ALORS RENVOYER Faux
+      
+      // Sélectionne la feuille où positionner l'objet
+      :Feuille_Sélectionner(sNomFeuille)
+      
+      // Page de dessin
+      pautDrawPage = :oFeuille>>DrawPage
+      
+      // Ligne
+      pautUneLigne = :oDocument>>createInstance("com.sun.star.drawing.LineShape") 
+      
+      // Point de départ
+      pautPointStart 		= :oServiceManager>>Bridge_GetStruct("com.sun.star.awt.Point")
+      pautPointStart>>X 	= X1*35
+      pautPointStart>>Y 	= Y1*30
+      
+      // Size
+      pautSize		= :oServiceManager>>Bridge_GetStruct("com.sun.star.awt.Size")
+      
+      // Détermine la taille d'après la position de fin indiquée
+      pautSize>>width = X2*35-X1*35	// Largeur
+      pautSize>>height= Y2*30-Y1*30	// Hauteur
+      
+      // Définit la position initiale du trait
+      pautUneLigne>>SetPosition(pautPointStart)
+      // Définit la taille de la "forme" trait
+      pautUneLigne>>SetSize(pautSize)
+      
+      // Epaisseur
+      pautUneLigne>>LineWidth    	= nEpaisseur*30
+      // Couleur
+      pautUneLigne>>LineColor		= :_ConversionCouleur(nCouleur)
+      
+      // Ajout de la ligne à la page de dessin
+      pautDrawPage>>add(pautUneLigne)
+      
+      // La ligne a été dessinée
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : _ConversionCouleur
+     procedure_id : 1694305036937436155
+     type_code : 12
+     code : |1-
+      // Résumé : Conversion de couleur : RVB -> BVR (OOCalc gère les couleurs au format BVR)
+      // Syntaxe :
+      //[ <Résultat> = ] _ConversionCouleur (<nCouleur>)
+      //
+      // Paramètres :
+      //	nCouleur : Couleur RVB
+      // Valeur de retour :
+      // 	entier :  Couleur BVR
+      //
+      Procédure PRIVE _ConversionCouleur(nCouleur)
+      
+      // Variables locales
+      sCouleurRVB		est une chaine
+      sCouleurBVR		est une chaine
+      nCOuleurBVR		est un entier
+      
+      // Conversion RVB -> BVR
+      sCouleurRVB = NumériqueVersChaîne(nCouleur, "06X")
+      sCouleurBVR = sCouleurRVB[[5 A 6]]+sCouleurRVB[[3 A 4]]+sCouleurRVB[[1 A 2]]
+      nCOuleurBVR = Val(sCouleurBVR,"x")
+      
+      // Renvoie la couleur convertie
+      renvoyer nCOuleurBVR
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasseur
+resources :
+ string_res :
+  identifier : 0x1fc4cd4000a1b577
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

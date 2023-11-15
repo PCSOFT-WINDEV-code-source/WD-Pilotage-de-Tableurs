@@ -1,0 +1,126 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : WD Pilotage de Tableurs
+ major_version : 28
+ minor_version : 0
+ type : 4097
+ description : Pilotage de Excel et OOCalc
+ subtype : 0
+project :
+ identifier : 0x0
+ internal_properties : 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
+ configurations :
+  -
+    name : WD Pilotage de Tableurs
+    internal_properties : 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
+    configuration_id : 7016673560161283398
+    type : 1
+    generation_name : WD Pilotage de Tableurs.exe
+    version :
+     version : VI200066F
+     autoincrement_version : false
+    icon_filename : .\VST18120d-32-5.ico
+    language : 1
+    new_features_help :
+     name : ""
+     internal_properties : CAAAAAgAAACx0grzvM43CdCyI5B4cP4zOdU1HHjVGn01elKl8lOxvKqJEfJbRHLyfzGLytV90yMRODjhsi1q
+ elements :
+  identifier : 0x4af44a0b001924f7
+  elements :
+   -
+     name : CTableur
+     identifier : 0x4755518a0002347d
+     internal_properties : CAAAAAgAAAB3019DYN1VVmAqhIBkAHeJIXBYECAJQ2iKXPrLeZb8DPz0oVYknNu4Qfji3qZaJppi4g==
+     physical_name : .\CTableur.wdc
+     type : 4
+   -
+     name : Procedures globales de WD Pilotage de Tableurs
+     identifier : 0x4755383000002e92
+     internal_properties : CAAAAAgAAAAdeXUplsNrdMLYri7yb5W7VwDy8li5rgFLqfOStnmdswmHzrnGMnXSr5YA+Lgo0MAICA==
+     physical_name : .\Procedures globales de WD Pilotage de Tableurs.wdg
+     type : 7
+   -
+     name : CChoixTableur
+     identifier : 0x475d6ea40001fdb8
+     internal_properties : CAAAAAgAAAD7VyNnRAEpMjw2kDzgfp+pXRjk9MAylPCqkNxKEwSWoh6Sw7TYIGfEXcQ+unp2AvbeZg==
+     physical_name : .\CChoixTableur.wdc
+     type : 4
+   -
+     name : FenSelCouleur
+     identifier : 0x47598f6f00005086
+     internal_properties : CAAAAAgAAAAKAHIWldJaBc3HrSn9bIIsKI/nvw/t6J2tetn+6T7WOpoET8jLNXLRrpUP6akn08UPFw==
+     physical_name : .\FenSelCouleur.wdw
+     type : 2
+   -
+     name : CClasseur
+     identifier : 0x475552b50003c660
+     internal_properties : CAAAAAgAAADasIKGJWJKVR1XPVlNLUZAQAEfhzk6M5BOSz9WTMNR/znJ7pn7xQJhPuXf2VmXY1W/Rw==
+     physical_name : .\CClasseur.wdc
+     type : 4
+   -
+     name : FEN_Principale
+     identifier : 0x4755776400000fc1
+     internal_properties : CAAAAAgAAADfuzfr2IWtvggC7Og8vd/J+YqUhCILYLujx1l8SMdXgb9ddAOMdLOQadDKNv7yjgLKSg==
+     physical_name : .\FEN_Principale.wdw
+     type : 2
+   -
+     name : CExcel
+     identifier : 0x475552b60004ca46
+     internal_properties : CAAAAAgAAACrp5P3NHE5YmwmgIwQE2+JJZIo+GqLIMdLhZty8l25V6EDrmkokNe0TfTuykqGcmautg==
+     physical_name : .\cexcel.wdc
+     type : 4
+  other_elements :
+   -
+     physical_name : .\description.gif
+   -
+     physical_name : .\description.rtf
+  uml_model : .\Modèle WD Pilotage de Tableurs.uml
+  net_assemblies : []
+  uwp_api : []
+  external_components : []
+  internal_components : []
+ report_and_queries_enabled : false
+ common_generation_directory : true
+ languages :
+  - fr-FR
+ code_elements :
+  internal_properties : CAAAAAgAAADyta1ztdEgrYxL2OIfroDzF7WpTxHA43nOPaiO8dWw0Vx+ktT0kYY/W+5/dMYhNYy+qZVHZb8274tsI4CTf3ye4wZX+srPcRKhBS20
+  type_code : 0
+  p_codes :
+   -
+     code : |1-
+      
+     type : 196608
+   -
+     code : |1-
+      
+     type : 196610
+   -
+     code : |1-
+      
+     type : 196619
+   -
+     type : 196621
+   -
+     type : 196627
+     enabled : false
+  orphans :
+   -
+     name : WD Pilotage de Tableurs
+     identifier : 0x4af44a0b00232555
+     code_elements :
+      type_code : 159
+      p_codes : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+rad :
+ internal_properties : CAAAAAgAAABhIL0UXeZmxDJxY3Xy0Q==
+project_explorer :
+ explorer_type : project
+resources :
+ string_res :
+  identifier : 0x0
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAAAd98VSJfHHqE3P0QHwrwdhn7ig8dWBR6valpUTgnAMTVXiDg==

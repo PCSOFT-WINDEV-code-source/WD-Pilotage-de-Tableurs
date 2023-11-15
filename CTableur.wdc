@@ -1,0 +1,1034 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CTableur
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x1755518800152c24
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAADrYgHT9IGq6iBRth45NjISk53suf/1+nh7dyNJJjpEqhAvBE7LSNeXPuUwtCV+mLn0jSQT+SdhiTfSUSSe61GUlag5haZ6ViZXbWjkvSWT9psV1+FJjNK/mTklvjNd1zUlnhDmpu7e31xY1PSbaYJCMg8cmPC1p0+5dSgHcCZc
+     code : |1-
+      // Cette classe permet de piloter un produit de type tableur : Excel, OpenOffice Calc
+      CTableur est une classe
+      	
+      	///////////////////////////////////////////////////////////////////////////////////////////
+      	// Variables de la classe CTableur
+      	m_sNomTableur		est une chaine
+      	
+      	///////////////////////////////////////////////////////////////////////////////////////////
+      	// Constantes
+      	CONSTANTE	
+      
+      		// Constantes d'alignement Horizontal
+      		cnAlignH_Gauche		= 1
+      		cnAlignH_Centre		= 2
+      		cnAlignH_Droite		= 3
+      
+      		// Constantes d'alignement Vertical
+      		cnAlignV_Haut		= 1
+      		cnAlignV_Centre		= 2
+      		cnAlignV_Bas		= 3
+      		
+      		//Bordures 
+      		cnToutesBordures = 1 				//Valeur rajoutée dans ce projet pour gérer toutes les bordures d'un coup
+      		cnBordureDiagonaleDescendante = 5 	//xlDiagonalDown
+      		cnBordureDiagonaleMontante = 6 		//xlDiagonalUp
+      		cnBordureGauche = 7 				//xlEdgeLeft
+      		cnBordureHaut = 8 					//xlEdgeTop
+      		cnBordureBas = 9 					//xlEdgeBottom
+      		cnBordureDroite = 10 				//xlEdgeRight
+      		cnBordureIntérieurVerticale = 11 	//xlInsideVertical
+      		cnBordureIntérieurHorizontale = 12 	//xlInsideHorizontal
+      		
+      		//Type de bordure de cellule
+      		cnTypeBordureContinue = 1 			//xlContinuous
+      		cnTypeBordureTiret = -4115 			//xlDash
+      		cnTypeBordureTiretPoint = 4 		//xlDashDot
+      		cnTypeBordureTiretPointPoint = 5 	//xlDashDotDot
+      		cnTypeBordurePoint = -4118 			//xlDot
+      		cnTypeBordureDouble = -4119			//xlDouble
+      		cnTypeBordureLineStyleNone = -4142 	//xlLineStyleNone 
+      		cnTypeBordureTiretPointOblique = 13 //xlSlantDashDot
+      		
+      		//Epaisseur de bordure de cellule
+      		cnEpaisseurTrèsFin = 1 				//xlHairline
+      		cnEpaisseurFin = 2 					//xlThin
+      		cnEpaisseurMoyen = -4138 			//xlMedium
+      		cnEpaisseurEpais = 4 				//xlThick
+      		
+      		//Style de motif
+      		cnMotifHorizontal = 11 				//xlLightHorizontal
+      		cnMotifVertical = 12 				//xlLightVertical
+      		cnMotifDiagonaleBas = 13 			//xlLightDown
+      		cnMotifDiagonaleHaut = 14 			//xlLightUp
+      		cnMotifGrille = 15 					//xlGrid
+      		cnMotifCrissCross = 16 				//xlCrissCross
+      		
+      	FIN	
+      Fin
+     type : 131072
+   -
+     code : |1-
+      
+     type : 131074
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1681339680451603492
+     type_code : 27
+     code : |1+
+      Procédure Constructeur()
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1681339680451669028
+     type_code : 28
+     code : |1+
+      Procédure Destructeur()
+     type : 655360
+   -
+     name : OuvrirClasseur
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681341986867077229
+     type_code : 12
+     code : |1-
+      // Résumé : Ouvre un document
+      // Syntaxe :
+      //[ <Résultat> = ] OuvrirClasseur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :    VRAI si le document est ouvert, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE OuvrirClasseur()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Créer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681342613935134954
+     type_code : 12
+     code : |1-
+      // Résumé : Création d'un nouveau document
+      // Syntaxe :
+      //[ <Résultat> = ] Créer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :  VRAI si le document est créé, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Créer()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Enregistrer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681343206640694405
+     type_code : 12
+     code : |1-
+      // Résumé : Enregistre le document courant
+      // Syntaxe :
+      //[ <Résultat> = ] Enregistrer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si le document est enregistré, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      Procédure VIRTUELLE Enregistrer()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : EnregistrerSous
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681343292540060746
+     type_code : 12
+     code : |1-
+      // Résumé :  Enregistre le document courant dans un fichier sélectionné
+      // Syntaxe :
+      //[ <Résultat> = ] EnregistrerSous ( [<sCheminDocument>])
+      //
+      // Paramètres :
+      //	sCheminDocument (valeur par défaut="") : Chemin complet du document
+      // Valeur de retour :
+      // 	booléen :  VRAI si le document est enregistré, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE EnregistrerSous(sCheminDocument <utile> ="")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Inserer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681344752829019152
+     type_code : 12
+     code : |1-
+      // Résumé : Insère une ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Inserer ( [<nPosition>])
+      //
+      // Paramètres :
+      //	nPosition (valeur par défaut=0) : Position à laquelle la ligne doit être insérée
+      // Valeur de retour :
+      // 	booléen :  VRAI si la ligne est insérée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Inserer(nPosition <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Masquer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681344877383164555
+     type_code : 12
+     code : |1+
+      // Résumé : Masque une ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Masquer ( [<nIndiceLigne> [, <bMasqué>]])
+      //
+      // Paramètres :
+      //	nIndiceLigne (valeur par défaut="") : Indice de la ligne à masquer
+      //	bMasqué (valeur par défaut=1) : VRAI pour masquer la ligne, FAUX dans le cas contraire
+      // Valeur de retour :
+      // 	booléen :  VRAI si la ligne est masquée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Masquer(nIndiceLigne <utile> = "", bMasqué <utile> =vrai)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Hauteur
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681345070656738209
+     type_code : 12
+     code : |1-
+      // Résumé : Modifie la hauteur d'une ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Hauteur ( [<nIndiceLigne> [, <nHauteur>]])
+      //
+      // Paramètres :
+      //	nIndiceLigne (valeur par défaut="") : Indice de la ligne à redimensionner
+      //	nHauteur (valeur par défaut=1) : Nouvelle hauteur de la ligne
+      // Valeur de retour :
+      // 	booléen : VRAI si la hauteur de ligne est modifiée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Hauteur(nIndiceLigne <utile> = "", nHauteur <utile> =1)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Colonne_Largeur
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681346913197809547
+     type_code : 12
+     code : |1-
+      // Résumé : Modifie la largeur d'une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Largeur ( [<sColonne> [, <nLargeur>]])
+      //
+      // Paramètres :
+      //	sColonne (valeur par défaut="") : Nom de la colonne à redimensionner
+      //	nLargeur (valeur par défaut=1) : Nouvelle largeur de la colonne
+      // Valeur de retour :
+      // 	booléen :   VRAI si la largeur de la colonne est modifiée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Largeur(sColonne <utile> = "", nLargeur <utile> =1)
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Colonne_Inserer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681346913197875286
+     type_code : 12
+     code : |1-
+      // Résumé : Insère une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Inserer ( [<sColonne>])
+      //
+      // Paramètres :
+      //	sColonne (valeur par défaut="") : Nom de la colonne sélectionnée pour l’insertion
+      // Valeur de retour :
+      // 	booléen :    VRAI si la colonne est insérée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Inserer(sColonne <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Colonne_Masquer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681346913197941025
+     type_code : 12
+     code : |1+
+      // Résumé : Masque une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Masquer ( [<sColonne> [, <bMasqué>]])
+      //
+      // Paramètres :
+      //	sColonne (valeur par défaut="") : Nom de la colonne à masquer
+      //	bMasqué (valeur par défaut=1) : VRAI pour masquer la colonne, FAUX dans le cas contraire
+      // Valeur de retour :
+      // 	booléen :   VRAI si la colonne est masquée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Masquer(sColonne <utile> = "", bMasqué <utile> =vrai)
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Feuille_Ajouter
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681348201688167468
+     type_code : 12
+     code : |1+
+      // Résumé : Insère une nouvelle feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Ajouter ( [<sNomFeuille>])
+      //
+      // Paramètres :
+      //	sNomFeuille (valeur par défaut="") : Nom de la feuille à insérer
+      // Valeur de retour :
+      // 	booléen : VRAI si la feuille est ajoutée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Ajouter(sNomFeuille <utile> ="")
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Feuille_Renommer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681349829480823664
+     type_code : 12
+     code : |1+
+      // Résumé : Renomme une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Renommer (<sNomFeuille>, <sNouveauNom>)
+      //
+      // Paramètres :
+      //	sNomFeuille : Nom de la feuille à renommer
+      //	sNouveauNom : Nouveau nom de la feuille
+      // Valeur de retour :
+      // 	booléen :  VRAI si la feuille est renommée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Renommer(sNomFeuille <utile> , sNouveauNom <utile> )
+      
+      RENVOYeR VRAI
+     type : 458752
+   -
+     name : Feuille_Selectionner
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681350112948731781
+     type_code : 12
+     code : |1+
+      // Résumé : Sélectionne une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Selectionner (<sNomFeuille>)
+      //
+      // Paramètres :
+      //	sNomFeuille : Nom de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen :  VRAI si la feuille est sélectionnée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Selectionner(sNomFeuille <utile> )
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Feuille_Supprimer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681350370646828806
+     type_code : 12
+     code : |1-
+      // Résumé : Supprime une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Supprimer ( [<sNomFeuille>])
+      //
+      // Paramètres :
+      //	sNomFeuille (valeur par défaut="") : Nom de la feuille à supprimer
+      // Valeur de retour :
+      // 	booléen :  VRAI si la feuille est supprimée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Supprimer(sNomFeuille <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : FermerClasseur
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681350761488943862
+     type_code : 12
+     code : |1-
+      // Résumé : Ferme le document
+      // Syntaxe :
+      //[ <Résultat> = ] FermerClasseur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si le document est fermé, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE FermerClasseur()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Selectionner
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681351676317060061
+     type_code : 12
+     code : |1-
+      // Résumé : Sélectionne une (plage de) cellule(s)
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Selectionner (<sPlageCellule>)
+      //
+      // Paramètres :
+      //	sPlageCellule : Plage de cellule à sélectionner
+      // Valeur de retour :
+      // 	booléen : VRAI si la plage de cellule est sélectionnée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Selectionner(sPlageCellule <utile> )
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Cellule_Lire
+     internal_properties : CAAAAAgAAABOYCDJwxHSd/lgjfd23paR5rEwhbLJBAVjnjGpCcxcoo2q7RQBu6XgBnWnurQrwR4Wv20vWgRUn65vWA/gaCZAlOuI2Vn0tZSuECIaI+Rka6jrk6ElRNgozgH/49IhMNjyLTGCzOXftrfwOPwMExlyPnFPU/urtQ/2M57jXQFiGAEaEJOSWnOd0ETO
+     procedure_id : 1681352488065937099
+     type_code : 12
+     code : |1-
+      // Résumé : Lit le contenu d'une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Lire (<sNomCellule>)
+      //
+      // Paramètres :
+      //	sNomCellule : Nom de la cellule à lire
+      // Valeur de retour :
+      // 	chaîne :  Contenu de la cellule
+      //// Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Cellule_Lire(sNomCellule <utile> )
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : Cellule_Police
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681352844548305114
+     type_code : 12
+     code : |1+
+      // Résumé : Modifie la police d'une plage de cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Police ( [<sPlageCellule> [, <sNomPolice> [, <nTaille> [, <bGras> [, <bItalique> [, <bSouligne> [, <nCouleurTexte> [, <nCouleurFond>]]]]]]]])
+      //
+      // Paramètres :
+      //	sPlageCellule : Plage de cellule à modifier
+      //	sNomPolice : Nom de la police à appliquer
+      // 	nTaille : taille de la police à appliquer
+      //	bGras (valeur par défaut=-1) : Gras
+      //	bItalique (valeur par défaut=-1) : Italique
+      //	bSouligne (valeur par défaut=-1) : Souligné
+      //	nCouleurTexte (valeur par défaut=-1) : Couleur du texte
+      //	nCouleurFond (valeur par défaut=-1) : Couleur de fond de cellule
+      // Valeur de retour :
+      // 	booléen :   VRAI si la police est appliquée, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Police(sPlageCellule <utile> ="", sNomPolice <utile> ="", nTaille <utile> =0, bGras <utile> =-1, bItalique <utile> =-1, bSouligne <utile> =-1, nCouleurTexte <utile> =-1, nCouleurFond <utile> =-1)
+      
+      RENVOYER vrai
+     type : 458752
+   -
+     name : Cellule_Ecrire
+     internal_properties : CAAAAAgAAAB6vQWaA3jwNRDv9MDEnZV5SfXKOH+1Ff7go9WDr0w7UY3CvFZB/rqvKMWTWZTZ4xMKJR7avK5LMNtI+UNvWPRMpU6FaI1TTw6zAOdHmNz/T8H+vNIESLETxepiCj9l+MCUk/gkB7O9Q7tmRKF0k9ayw1KiB7KISznP8gc3+EcrSreHETCIx2jiMoxXdyF973RPIWbQC4MjCNGwaeEQ0l3u
+     procedure_id : 1681353639117309287
+     type_code : 12
+     code : |1+
+      // Résumé : Ecrit une valeur dans une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Ecrire (<sNomCellule>, <sValeur>)
+      //
+      // Paramètres :
+      //	sNomCellule : Nom de la cellule
+      //	sValeur : Nom de la valeur
+      // Valeur de retour :
+      // 	booléen :  VRAI si la valeur a été écrite, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Ecrire(sNomCellule <utile> , sValeur <utile> )
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Cellule_AlignementHorizontal
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681354584010137542
+     type_code : 12
+     code : |1+
+      // Résumé : Aligne le contenu d'une (plage de) cellule(s)
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementHorizontal ( [<sPlageCellule> [, <nAlignement>]])
+      //
+      // Paramètres :
+      //	sPlageCellule : Plage de cellule à aligner
+      //	nAlignement (valeur par défaut=1) : Alignement à appliquer (cf les constantes)
+      // Valeur de retour :
+      // 	booléen :  VRAI si l'alignement est effectif, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_AlignementHorizontal(sPlageCellule <utile> ="", nAlignement <utile> =::cnAlignH_Gauche)
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Cellule_AlignementVertical
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681355335629523512
+     type_code : 12
+     code : |1+
+      // Résumé : Aligne le contenu d'une (plage de) cellule(s)
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementVertical ( [<sPlageCellule> [, <nAlignement>]])
+      //
+      // Paramètres :
+      //	sPlageCellule : Plage de cellule à aligner
+      //	nAlignement (valeur par défaut=1) : Alignement à appliquer (cf les constantes)
+      // Valeur de retour :
+      // 	booléen : VRAI si l'alignement est effectif, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_AlignementVertical(sPlageCellule <utile> ="", nAlignement <utile> =::cnAlignV_Haut)
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Imprimer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681359961309461548
+     type_code : 12
+     code : |1+
+      // Résumé : Imprime le document courant
+      // Syntaxe :
+      //[ <Résultat> = ] Imprimer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si le document est imprimé, FAUX dans le as contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Imprimer()
+      
+      RENvOYER VRAI
+     type : 458752
+   -
+     name : Ligne_Supprimer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681414447979220171
+     type_code : 12
+     code : |1-
+      // Résumé : Supprime une ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Supprimer ( [<nIndice>])
+      //
+      // Paramètres :
+      //	nIndice (valeur par défaut="") : Indice de la ligne à supprimer
+      // Valeur de retour :
+      // 	booléen :  VRAI si la ligne a été supprimée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Supprimer(nIndice <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Colonne_Supprimer
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681414551058458956
+     type_code : 12
+     code : |1-
+      // Résumé : Supprime une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Supprimer ( [<sColonne>])
+      //
+      // Paramètres :
+      //	sColonne (valeur par défaut="") : Nom de la colonne à supprimer
+      // Valeur de retour :
+      // 	booléen :   VRAI si la colonne a été supprimée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Supprimer(sColonne <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_Nom
+     internal_properties : CAAAAAgAAABOYCDJwxHSd/lgjfd23paR5rEwhbLJBAVjnjGpCcxcoo2q7RQBu6XgBnWnurQrwR4Wv20vWgRUn65vWA/gaCZAlOuI2Vn0tZSuECIaI+Rka6jrk6ElRNgozgH/49IhMNjyLTGCzOXftrfwOPwMExlyPnFPU/urtQ/2M57jXQFiGAEaEJOSWnOd0ETO
+     procedure_id : 1681415672045052896
+     type_code : 12
+     code : |1-
+      // Résumé : Récupère le nom de la feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Nom ( [<nIndice>])
+      //
+      // Paramètres :
+      //	nIndice (valeur par défaut=1) : Indice de la feuille
+      // Valeur de retour :
+      // 	chaîne :    Nom de la feuille
+      //// Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Feuille_Nom(nIndice <utile> =1)
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : Colonne_Trier
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681422578597604885
+     type_code : 12
+     code : |1-
+      // Résumé : Trie une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Trier ( [<sColonne> [, <sOrdre>]])
+      //
+      // Paramètres :
+      //	sColonne (valeur par défaut="A") : Nom de la colonne
+      //	sOrdre (valeur par défaut="ASC") : Ordre de tri ASC / DESC
+      // Valeur de retour :
+      // 	booléen :  VRAI si le tri est effectif, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Trier(sColonne <utile> ="A", sOrdre <utile> ="ASC")
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Cellule_Couper
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681644721957822029
+     type_code : 12
+     code : |1-
+      // Résumé :Coupe le contenu de cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Couper ( [<sPlageCellule>])
+      //
+      // Paramètres :
+      //	sPlageCellule (valeur par défaut="") : Plage de cellule
+      // Valeur de retour :
+      // 	booléen :   VRAI si le contenu est coupé, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Couper(sPlageCellule <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Copier
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681645001130761665
+     type_code : 12
+     code : |1-
+      // Résumé :Copie le contenu de cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Copier ( [<sPlageCellule>])
+      //
+      // Paramètres :
+      //	sPlageCellule (valeur par défaut="") : Plage de cellule
+      // Valeur de retour :
+      // 	booléen :  VRAI si le contenu est copié, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Copier(sPlageCellule <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Coller
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1681645026900636109
+     type_code : 12
+     code : |1-
+      // Résumé :Coller le contenu de cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Coller ( [<sPlageCellule>])
+      //
+      // Paramètres :
+      //	sPlageCellule (valeur par défaut="") : Plage de cellule
+      // Valeur de retour :
+      // 	booléen :  VRAI si le contenu est coller, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Coller(sPlageCellule <utile> = "")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Fusionner
+     internal_properties : CAAAAAgAAACEuov7VQHgCxlgWYDc+1g1C0h+wKe7Jr6qA4wXCWvNMU3Be1WGqpN27YZNHCXRFgh1taDoYFca/H1hK/T2BoqKYM7y/tQNFW7cgasPvDEpLaHN4/LBGIQ+fB7wByxGn71ZGWG8aBD/xIXpd/7FUy+OvLXROvlIA60EX6FmnKdAGWSpnWDHZ4YkhoqE
+     procedure_id : 1681648613200999068
+     type_code : 12
+     code : |1-
+      // Résumé : Fusionne la plage de cellule sélectionnée
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Fusionner ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Plage de cellule à fusionner
+      // Valeur de retour :
+      // 	booléen :  VRAI si la fusion est effective, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Fusionner(sPlage <utile> ="")
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Feuille_Occurrence
+     internal_properties : CAAAAAgAAAD/xn8CHAC2d3BMexVl2s2wGHvf5HSjJVSXtQYifXYx+IdzWiephWCeVNM3KMTFNXDNPZ/RBG35KiOkPvrb/KpdIT0Za3zEGduyAVBo5a+lp2cM21lxjGylcJZDeQw4rRazqAf2TPdJUTN5VHDsRroWB6bl8SVPFThN/YCjdX3xxJSFOK2Op7I91w==
+     procedure_id : 1682478688739725337
+     type_code : 12
+     code : |1-
+      // Résumé : Renvoie le nombre de feuille du classeur
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Occurrence ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	entier :  Nombre de feuille
+      // Traitement automatique des erreurs : RENVOYER 0
+      //
+      
+      Procédure VIRTUELLE Feuille_Occurrence()
+      
+      renvoyer 0
+     type : 458752
+   -
+     name : Feuille_Existe
+     internal_properties : CAAAAAgAAABOYCDJwxHSd/lgjfd23paR5rEwhbLJBAVjnjGpCcxcoo2q7RQBu6XgBnWnurQrwR4Wv20vWgRUn65vWA/gaCZAlOuI2Vn0tZSuECIaI+Rka6jrk6ElRNgozgH/49IhMNjyLTGCzOXftrfwOPwMExlyPnFPU/urtQ/2M57jXQFiGAEaEJOSWnOd0ETO
+     procedure_id : 1682483692395157388
+     type_code : 12
+     code : |1-
+      // Résumé : Vérifie l'existence de la feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Existe (<psNomFeuille>)
+      //
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille
+      // Valeur de retour :
+      // 	booléen :     Vrai si la feuille existe et faux sinon
+      //// Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Feuille_Existe(psNomFeuille <utile>)
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Feuille_SelectionnerParIndice
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1682487862808455141
+     type_code : 12
+     code : |1-
+      // Résumé : Sélectionne une feuille par un indice
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_SelectionnerParIndice (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Indice de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen :   VRAI si la feuille est sélectionnée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_SelectionnerParIndice(nIndice <utile> )
+      
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : Cellule_Type
+     procedure_id : 1682515659697318444
+     type_code : 12
+     code : |1-
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Type (<psCellule>)
+      // Renvoie le type d'une cellule (vide, valeur, texte, formule)
+      // Paramètres :
+      //	psCellule : Cellule à interroger
+      // Valeur de retour :
+      // 	chaîne :                 une des valeurs suivantes :
+      // 0 : VIDE
+      // 1 : VALEUR
+      // 2 : TEXTE
+      // 3 : FORMULE
+      Procédure VIRTUELLE Cellule_Type(psCellule <utile> )
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : AperçuAvantImpression
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683573497267980621
+     type_code : 12
+     code : |1+
+      // Résumé : Lance l'aperçu avant impression
+      // Syntaxe :
+      //[ <Résultat> = ] AperçuAvantImpression ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :  VRAI si l'aperçu avant impression est lancé, FAUX dans le cas contraire
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE AperçuAvantImpression()
+      
+      RENvOYER VRAI
+     type : 458752
+   -
+     name : Feuille_AjouterSelection
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683577263960550078
+     type_code : 12
+     code : |1+
+      // Résumé : Ajoute une feuille sélectionnée
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_AjouterSelection (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Indice de la feuille
+      // Valeur de retour :
+      // 	booléen :     VRAI si la feuille est sélectionnée, FAUX dans le cas contraire
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_AjouterSelection(nIndice <utile> )
+      
+      RENVOYER VRAI
+     type : 458752
+   -
+     name : _bDetection
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1683624298264322402
+     type_code : 12
+     code : |1-
+      // Résumé : Indique si le produit OOCalc est présent sur le poste en cours
+      // Syntaxe :
+      //[ <Résultat> = ] _bDetection ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : VRAI si traitement réussi
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE _bDetection()
+      
+      // Variables locales
+      
+      RENVOYER vrai
+     type : 458752
+   -
+     name : Cellule_Format
+     procedure_id : 1683658121057405839
+     type_code : 12
+     code : |1-
+      // Résumé : Formate une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Format (<sFormatCellule> [, <sPlage>])
+      //
+      // Paramètres :
+      //	sFormatCellule : Format de la cellule NOMBRE, DATE, HEURE, MONETAIRE, POURCENTAGE
+      //	sPlage : Plage de cellule
+      // Valeur de retour :
+      // 	booléen :  VRAI si traitement réussi
+      //
+      Procédure VIRTUELLE Cellule_Format(sFormatCellule <utile> , sPlage <utile> ="")
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Bordure
+     internal_properties : CAAAAAgAAAC9oPkPH16rnSfIjz8O6w/x46fdWAPtdZ5GqfCAN8PlEeI9BwevakNgQkz4iaS1+lsQpwRrtTHrppDgsXSWpzBI0WNzvA/m0SKzx1lRN7WI0wRZXhdGrLmIKZt0FWJ51669ZviLul+9jwss2ZHyQ4yKGpct2Yt3C4G7YjI19k1LpmB8No7iVrg0asFfeA==
+     procedure_id : 1687346050543237797
+     type_code : 12
+     code : |1-
+      // Résumé : Permet de définir les bordures d'une cellule ou d'une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Bordure ( [<sPlage> [, <nBordure> [, <nEpaisseur> [, <nCouleur>]]]])
+      //
+      // Paramètres :
+      //	sPlage (valeur par défaut="") : Plage de cellules
+      //	nBordure (valeur par défaut=1) : Quelle bordure veut on ? (par défaut : toutes)
+      //	nEpaisseur (valeur par défaut=1) : Quelle épaisseur pour la bordure ? (par défaut : épaisseur moyenne)
+      //	nCouleur (valeur par défaut=0) : Quelle couleur pour la bordure ? (par défaut : noir)
+      // Valeur de retour :
+      // 	booléen :    VRAI si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure virtuelle Cellule_Bordure(sPlage <utile> ="", nBordure <utile> = ::cnToutesBordures, nEpaisseur <utile> =1, nCouleur <utile> =0)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_DessinerTrait
+     internal_properties : CAAAAAgAAABhtA50/18B6lCMT1kH/qvCG/7bK6wSnOeQdTrhDiMYO4cNsAXAZ0vyQqF3bub2zHGKmPwxN1flUl+3QybrFBXFXE5R/CS324d66K2B9K+TFKTL5CTaAh/hxm9B5cJN3sRGqdffYWgGPfS/u3VRRqxOYXeOxzhTWzSYU/A0sW26zJBGHAWIO6XyTiqVabW/DZXksYDUvYW9vcINxl3n11bl
+     procedure_id : 1687349061340916885
+     type_code : 12
+     code : |1-
+      // Résumé : Dessine un objet dans la feuille spécifiée en paramètre
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_DessinerTrait (<X1>, <Y1>, <X2>, <Y2> [, <nEpaisseur> [, <nCouleur> [, <sNomFeuille>]]])
+      //
+      // Paramètres :
+      //	X1 : Abscisse du point d'origine
+      //	Y1 : Ordonnée du point d'origine
+      //	X2 : Abscisse du point destination
+      //	Y2 : Ordonnée du point destination
+      //	nEpaisseur (valeur par défaut=1) : Epaisseur du trait
+      //	nCouleur (valeur par défaut=0) : Couleur du trait
+      //	sNomFeuille : Nom de la feuille où le trait doit être dessinée
+      // Valeur de retour :
+      // 	booléen :   VRAI si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_DessinerTrait(X1 <utile> , Y1 <utile> , X2 <utile> , Y2 <utile> , nEpaisseur <utile> = 1 , nCouleur <utile>  = 0, sNomFeuille <utile> ="")
+      
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_Motif
+     internal_properties : CAAAAAgAAACEuov7VQHgCxlgWYDc+1g1C0h+wKe7Jr6qA4wXCWvNMU3Be1WGqpN27YZNHCXRFgh1taDoYFca/H1hK/T2BoqKYM7y/tQNFW7cgasPvDEpLaHN4/LBGIQ+fB7wByxGn71ZGWG8aBD/xIXpd/7FUy+OvLXROvlIA60EX6FmnKdAGWSpnWDHZ4YkhoqE
+     procedure_id : 1687349267499461177
+     type_code : 12
+     code : |1-
+      // Résumé : Permet de modifier le style de motif d'une cellule ou d'une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Motif ( [<sPlage> [, <nStyleMotif> [, <nCouleur>]]])
+      //
+      // Paramètres :
+      //	sPlage : plage de cellules à sélectionner
+      //	nStyleMotif (valeur par défaut=13) : style de motif que l'on souhaite
+      //	nCouleur : Couleur des motifs à appliquer
+      // Valeur de retour :
+      // 	booléen :  VRAI si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure virtuelle Cellule_Motif(sPlage <utile> ="", nStyleMotif <utile> =::cnMotifDiagonaleBas, nCouleur <utile> =rvb(60,60,60))
+      
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : GetNomTableur
+     procedure_id : 1694339333139821806
+     type_code : 12
+     code : |1-
+      // Résumé : Renvoie le nom du tableur
+      // Syntaxe :
+      //[ <Résultat> = ] GetNomTableur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne :  Nom du tableur
+      //
+      Procédure GetNomTableur()
+      
+      
+      // Renvoie le nom du tableur
+      renvoyer :m_sNomTableur
+     type : 458752
+   -
+     name : EstOuvert
+     procedure_id : 1695047507001981640
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //[ <Résultat> = ] EstOuvert ()
+      // Permet de vérifier si le classeur est bien toujours ouvert
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :      Vrai si le classeur est ouvert
+      
+      PROCEDURE VIRTUELLE EstOuvert()
+      
+      renvoyer vrai
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+  original_name : CClasse1
+resources :
+ string_res :
+  identifier : 0x1fc4cd40003fb558
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

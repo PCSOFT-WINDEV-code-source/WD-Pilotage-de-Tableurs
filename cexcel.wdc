@@ -1,0 +1,2225 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CExcel
+ major_version : 28
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x3adbf68d2169fc84
+ internal_properties : CAAAAAgAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  internal_properties : CAAAAAgAAABm4PVFe9JAHaoZ7pWrapr167xJBrSdz0axAnnnfYhOQaaZf6aFmw+87+hdnze0968KI3y7g0wMbri74fT3L3UE/39pGg==
+  type_code : 10
+  p_codes :
+   -
+     internal_properties : CAAAAAgAAABxwckXqC/EHHG28zVPC1z+hHfKo6cNQWrpzsC5STcIDIHLQ/FwQQHUYlxqAgXrATf7rKx9avV2E52UiLD/UPzgAowqlj3cSUJr1LKXT9FUysj1gCBz8c6NPywkSN07Gnpy/KlmBV9SD8c644/YLXfhNlSyLjFw9VEMsUNKIM8Ik+jKYJB5IUMgFflkGIHuHt0=
+     code : |1-
+      CExcel est une Classe
+      	hérite de cTableur
+      	
+      	m_xExcel 				est un objet ole dynamique	// Pointeur sur objet actif
+      	m_nVersion 				est un entier  				// Version de Excel installée sur le poste
+      	m_sClasseurEnCours 		est une chaine				// Nom du classeur en cours
+      	m_sTabFeuillesSélectionnées est un tableau de 0 chaines
+      	
+      	CONSTANTE
+      		//Format Excel xls 
+      		cnFormatXls = -4143
+      		//Format Excel xlsX 
+      		cnFormatXlsx = 51
+      		
+      
+      	FIN
+      Fin
+     type : 131072
+   -
+     code : |1-
+      
+     type : 131074
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 4241254560529448078
+     type_code : 27
+     code : |1+
+      Procédure Constructeur()
+      
+      // Nom du tableur
+      :m_sNomTableur = CChoixTableur::csProduit_Excel
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 4241254559840140430
+     type_code : 28
+     code : |1+
+      PROCEDURE Destructeur()
+      
+      SI :m_xExcel<>Null ALORS
+      	:Quitter()
+      	Multitache(-10)
+      	
+      	// on libère le pointeur
+      	libérer :m_xExcel
+      fin
+     type : 655360
+   -
+     name : Feuille_DessinerTrait
+     internal_properties : CAAAAAgAAAAcSDwFE3ffBQMFrr2A8QmEfIV5Qd1g7TZF0aLqxQX4Uscm1HEI6uUunO/5GdGsshdj8rB5zL+bjAJdHAy5pqO9VvRVjdg/sjgw9Nj8uD+nXliKvNnEU5qJIIBWuvUtC7GQwZvgA+l156lje0UvoJSr3jMs8aGsQNRltxoCsYUgSUlEZAVPzhg4S6ANxz8HNz1eg4YwAPgUEKSwdBtCgj5XiNSspKB1okndtrBdR8vZYI8CLSluKmSzEHCe/rBJbGmb79/NskeHFdt1
+     procedure_id : 4241254560110935202
+     type_code : 12
+     code : |1-
+      // Résumé : Dessine un objet dans la feuille spécifiée en paramètre
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_DessinerTrait (<X1>, <Y1>, <X2>, <Y2> [, <nEpaisseur> [, <nCouleur> [, <sNomFeuille>]]])
+      //
+      // Paramètres :
+      //	X1 : Abscisse du 1er point
+      //	Y1 : Ordonnée du 1er point
+      //	X2 : Abscisse du 2ème point
+      //	Y2 : Ordonnée du 2ème point
+      //	nEpaisseur (valeur par défaut=1) : Epaisseur du trait
+      //	nCouleur (valeur par défaut=0) : Couleur du trait
+      //	sNomFeuille : Feuille dans laquelle dessinée, par défaut, c'est la feuille courante
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_DessinerTrait(X1, Y1, X2, Y2, nEpaisseur= 1 , nCouleur = 0, sNomFeuille="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      SI sNomFeuille<>"" ALORS
+      	// On sélectionne la feuille désirée
+      	:Feuille_Selectionner(sNomFeuille)
+      	//sinon on prend la feuille courante
+      FIN
+      
+      //Trace le trait
+      pautLigne est un objet ole dynamique
+      pautLigne = :m_xExcel>>ActiveSheet>>Shapes>>AddLine(X1, Y1, X2, Y2)
+      
+       //Change l'épaisseur, la couleur et la visibilité
+      pautLigne>>Line>>Weight(nEpaisseur)
+      pautLigne>>Line>>ForeColor>>RGB = nCouleur
+      
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : Cellule_AlignementHorizontal
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254572736710861
+     type_code : 12
+     code : |1+
+      // Résumé : Spécifie l'alignement horizontal des cellules sélectionnées
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementHorizontal ( [<sPlage> [, <nAlignement>]])
+      //
+      // Paramètres :
+      //	sPlage : cellules sélectionnées
+      //	nAlignement (valeur par défaut=1:Gauche) : 1->Gauche, 2->Centre, 3->Droite
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      procédure VIRTUELLE Cellule_AlignementHorizontal(sPlage="",nAlignement =::cnAlignH_Gauche)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on sélectionne la plage demandée
+      si sPlage<>"" alors
+      	:Cellule_Selectionner(sPlage)
+      fin
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      nAlignConstante est un entier 
+      
+      // Si l'alignement est correct
+      SI nAlignement DANS (::cnAlignH_Gauche,::cnAlignH_Centre,::cnAlignH_Droite) ALORS
+      	// Spécifie l'alignement horizontal des cellules de la plage sélectionnée
+      	SELON nAlignement
+      		CAS 1 : //"GAUCHE"
+      			nAlignConstante = -4131 //xlLeft
+      		CAS 2 : //"CENTRE"
+      			nAlignConstante = -4108 //xlCenter
+      		CAS 3 : // "DROITE"
+      			nAlignConstante = -4152 //xlRight
+      		AUTRE CAS 
+      			nAlignConstante = -4131 //xlLeft
+      	FIN		
+      	// on réalise l'alignement demandé	
+      	:m_xExcel>>Selection>>HorizontalAlignment = nAlignConstante	
+      	RENVOYER Vrai
+      FIN
+      
+      // L'alignement n'a pas pu être effectué
+      RENVOYER Faux
+     type : 458752
+   -
+     name : Cellule_Coller
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254572618549523
+     type_code : 12
+     code : |1-
+      // Résumé : Coller le contenu dans une cellule donné
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Coller ( [<sCellule>])
+      //
+      // Paramètres :
+      //	sCellule : Cellule où coller le contenu
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Coller(sCellule="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sCellule<>"" alors
+      	
+      	// sélection de la cellule	
+      	:Cellule_Selectionner(sCellule)
+      	
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      	
+      	// coller dans la zone
+      	:m_xExcel>>ActiveSheet>>Paste()
+      	
+      	renvoyer vrai
+      	
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Cellule_Copier
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254573159549323
+     type_code : 12
+     code : |1-
+      // Résumé : Copie le contenu de la cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Copier ( [<sCellule>])
+      //
+      // Paramètres :
+      //	sCellule :  Cellule à copier
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Copier(sCellule="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sCellule<>"" alors
+      
+      // Sélection de la cellule
+      	:Cellule_Selectionner(sCellule)
+      	
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      	
+      	// copier de la zone
+      	:m_xExcel>>Selection>>Copy()
+      	
+      	renvoyer vrai 
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Cellule_Couper
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254574345685467
+     type_code : 12
+     code : |1-
+      // Résumé : Coupe le contenu de la cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Couper ( [<sCellule>])
+      //
+      // Paramètres :
+      //	sCellule : Cellule à couper
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Couper(sCellule="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sCellule<>"" alors
+      	
+      	// sélection de la cellule
+      	:Cellule_Selectionner(sCellule)
+      	
+      	// couper
+      	:m_xExcel>>Selection>>Cut()
+      	
+      	renvoyer vrai 	
+      	
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Cellule_Ecrire
+     internal_properties : CAAAAAgAAAAAzau3C6RGa9VoRinBnmISKA32DZN5icRHYPNPg2KiM+RxQzaJR7AdKIZHpYOGOfvhy0kUebJxxAut+0808r6Dr63tFMXEfIRgwTLkskgKzTww9xoqXaEjcYTWFDZ7Fu22yNNhvo0FYk7w8cJUPDycRE2DYJzgAXALOpIXgLmofmucpc48QAtoYXfTDKbwKFMZ9pCwgJO2T+2hwexPqlPy81ARGmaKVBihqErIo0owqbOZgUDmS/4SI6UG5NpstocIt3oMFl4pk9imRAMgaDSklu3Bn5s=
+     procedure_id : 4241254572494359063
+     type_code : 12
+     code : |1-
+      // Résumé : // Ecrire le contenu spécifié dans la cellule spécifiée
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Ecrire (<sCellule>, <sValeur>)
+      //
+      // Paramètres :
+      //	sCellule : Cellule dans laquelle écrire
+      //	sValeur : Valeur à écrire numérique, chaine ou formule
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Ecrire(sCellule, sValeur)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // S'agit-il d'une formule ?
+      SI Gauche(sValeur,1)="=" ALORS
+      	// Ecrire la formule spécifiée dans la cellule spécifiée
+      	// Ecrire une valeur dans la cellule passée en paramètre
+      	:m_xExcel>>Range(sCellule)>>Formula = sValeur +" "
+      	:m_xExcel>>Calculate()
+      SINON
+      	// Ecrire une valeur dans la cellule passée en paramètre
+      	:m_xExcel>>Range(sCellule)>>Value = sValeur
+      FIN
+      
+      renvoyer vrai 
+     type : 458752
+   -
+     name : Enregistrer
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254574033340971
+     type_code : 12
+     code : |1-
+      // Résumé :  Enregistre le classeur en cours
+      // Syntaxe :
+      //[ <Résultat> = ] Enregistrer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Enregistrer()
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	renvoyer faux
+      FIN
+      
+      
+      // si on n'a pas de document en cours
+      si :m_sClasseurEnCours~="" alors
+      	
+      	:EnregistrerSous()
+      	
+      sinon
+      	
+      	// on sauve le document
+      	:m_xExcel>>ActiveWorkbook>>Save()
+      	
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : EnregistrerSous
+     internal_properties : CAAAAAgAAACVZR7tfMX3OreBdI4Dzf9VbCcj7pOZHVtOBIn92ZnIrnA2TO5wPTeV19VUc+DXRTKOTvVvZoDI50LkL7uu8nL8jqQqjup8efU/1JJ7xWmrH+Z/jJ2jpknSsQdUHDM+BKWRU1ZHZwAhUnycVdAHpwMsc0gaKBXAF0ymkqij/ShjeoR/BFxLOv+O4gOJZq3JCQ+QWf8ulaP8Yzho1b7olfG6PXvML+xx8+ti9+UkbdRgYbnOIoezDYEcNFWkUTJr3rtZwSZZLw7bFLybF4qRE9kAEQ==
+     procedure_id : 4241254572588141209
+     type_code : 12
+     code : |1+
+      // Résumé : Ouvre un sélecteur de fichier puis enregistre
+      // Syntaxe :
+      //[ <Résultat> = ] EnregistrerSous ( [<sNomClasseur>])
+      //
+      // Paramètres :
+      //	sNomClasseur (valeur par défaut="") : < indiquez ici le rôle de psCheminComplet >
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE EnregistrerSous(sNomClasseur="")
+      
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      si sNomClasseur ~= ""
+      	si :m_nVersion <12 ALORS
+      		
+      		// Sélection ou création d'un fichier Excel
+      		sNomClasseur=fSélecteur("","","Enregistrer sous...","Document Excel (*.XLS)"+TAB+"*.XLS",".XLS",fselCrée+fselExiste)
+      		
+      	sinon
+      		//Pour Office 2007, on propose la nouvelle extension XLSX
+      		// Sélection ou création d'un fichier Excel
+      		sNomClasseur=fSélecteur("","","Enregistrer sous...","Document Excel (*.XLS)"+TAB+"*.XLS" + RC + "Document Excel (*.XLSX)"+TAB+"*.XLSX",".XLS",fselCrée+fselExiste)
+      		
+      	FIN
+      	
+      	// Aucun fichier sélectionné
+      	SI sNomClasseur="" ALORS 
+      		
+      		RENVOYER Faux 
+      	FIN
+      	
+      FIN
+      
+      
+      //Récupération du format d’enregistrement
+      nFormat est un entier 
+      SELON Majuscule(fExtraitChemin(sNomClasseur,fExtension))
+      	CAS ".XLSX" :
+      		nFormat = ::cnFormatXlsx
+      	CAS ".XLS" :
+      		nFormat = ::cnFormatXls	
+      FIN
+      
+      :m_xExcel>>ActiveWorkbook>>SaveAs(sNomClasseur,nFormat)
+      :m_sClasseurEnCours=sNomClasseur
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : FermerClasseur
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254573124225739
+     type_code : 12
+     code : |1-
+      // Résumé : Ferme le document actif
+      // Syntaxe :
+      //[ <Résultat> = ] FermerClasseur ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE FermerClasseur()
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on ferme le classeur actif
+      :m_xExcel>>ActiveWorkbook>>Close(faux)
+      
+      // il n'y a plus de classeur en cours
+      :m_sClasseurEnCours=""
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Format
+     internal_properties : CAAAAAgAAADs9NTp+gyJaIYRRtYm5t8bhWJU6+ckuzRUoUBrva7dGYCpOCdnWGItvIKtcZyh0ggu/buQWGce4D1GySRZvk3ln3tJPNZLPfnhEOeO89GULn9dgb66vbdUnGgbnvzxE7WCnnfro5nxzDB699SfEnvbdbAmmyI+rEnYKgQdswl1MdzLdEmm0nwz9Kx2cz1BYi4EACLGUaqAILt/PNFRCyN1neOk+ThWo1Ju5LZqpd4a
+     procedure_id : 4241254577578380009
+     type_code : 12
+     code : |1-
+      // Résumé : Permet de modifier le format d'une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Format (<sFormatCellule> [, <sPlage>])
+      //
+      // Paramètres :
+      //	sFormatCellule : NOMBRE, DATE, HEURE, MONETAIRE, POURCENTAGE, FRACTION, SCIENTIFIQUE, TEXTE
+      //	sPlage : plage de cellules à sélectionner
+      // Valeur de retour :
+      // 	booléen :    Vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure virtuelle Cellule_Format(sFormatCellule, sPlage="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // Sélection de la plage de cellule
+      si sPlage<>"" alors
+      	
+      	:Cellule_Selectionner(sPlage)
+      	
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      		
+      	sFormat est une chaine
+      	SELON Majuscule(sFormatCellule)
+      		CAS "NOMBRE"
+      			sFormat = "0,00"
+      		CAS "DATE"
+      			sFormat = "j mmmm aaaa"
+      		CAS "HEURE"
+      			sFormat = "h:mm:ss"
+      		CAS "MONETAIRE"
+      			sFormat = "#,##00 €"
+      		CAS "POURCENTAGE"
+      			sFormat = "0,00%"
+      		CAS "FRACTION"
+      			sFormat = "# ?/?"
+      		CAS "SCIENTIFIQUE"
+      			sFormat = "0.00E+00"
+      		CAS "TEXTE"
+      			sFormat ="@"
+      		AUTRE CAS 
+      			sFormat = "@"
+      	FIN
+      	
+      	// On met au format	voulu
+      	:m_xExcel>>Selection>>NumberFormat = sFormat
+      	
+      	renvoyer vrai 
+      fin
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Cellule_Fusionner
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254578143497018
+     type_code : 12
+     code : |1+
+      // Résumé : Fusionne des cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Fusionner ( [<sPlage>])
+      //
+      // Paramètres :
+      //	sPlage : Plage de cellule à fusionner
+      // Valeur de retour :
+      // 	booléen : vrai si traitement réussi 
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Fusionner(sPlage="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sPlage<>"" alors
+      	// sélection de la plage de cellules
+      	:Cellule_Selectionner(sPlage)
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      	// Fusionne verticalement ou horizontalement les cellules sélectionnées
+      	:m_xExcel>>Selection>>Merge()
+      	
+      	renvoyer vrai 
+      	
+      fin
+      
+      renvoyer Faux
+     type : 458752
+   -
+     name : Ligne_Hauteur
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254578563517452
+     type_code : 12
+     code : |1-
+      // Résumé : Change la hauteur de la ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Hauteur ( [<nLigne> [, <nTaille>]])
+      //
+      // Paramètres :
+      //	nLigne : ligne à sélectionner (facultatif)
+      //	nTaille (valeur par défaut=-1) : Hauteur désirée ou -1 pour ajuster la hauteur de la ligne au contenu
+      // Valeur de retour :
+      // 	booléen :  Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Hauteur(nLigne="", nTaille = -1)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si nLigne<>"" alors
+      	:Cellule_Selectionner(nLigne)
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      SI nTaille = -1 ALORS
+      	// on ajuste la hauteur de la ligne à son contenu
+      	:m_xExcel>>Selection>>Rows>>AutoFit()
+      SINON	
+      	// on modifie la hauteur de la ligne passée en paramètre
+      	:m_xExcel>>Selection>>RowHeight = nTaille
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Imprimer
+     internal_properties : CAAAAAgAAAACDurgb4kKJ9KvRA4/2uBfy/UqDBkhy7n3B+8Nx/g5gttQrukebyOANtvD4O4XzMKKbYe613aH7xHzuy0wMTykqCuHFQrhJa8dS2ZxkvBhtiE43oRaj5kDFCU70+hfnBTcx/l9p+KEu3w3p7GV4kjug4GSGyRPX9oY22a+BREWvuAWbLU4e0UWpD9c6qupG0NuKwoaWytZ+0bOdbO9jfNz/5FgCOAL3KR4UuH3AqMLDA==
+     procedure_id : 4241254578227973162
+     type_code : 12
+     code : |1+
+      // Résumé : Imprime le document actif
+      // Syntaxe :
+      //[ <Résultat> = ] Imprimer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Imprimer()
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // On appelle la fonction d'impression de Excel
+      :m_xExcel>>ActiveWindow>>SelectedSheets>>PrintOut(1)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Colonne_Inserer
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254578571643966
+     type_code : 12
+     code : |1-
+      // Résumé : Insérer une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Inserer ( [<sColonne>])
+      //
+      // Paramètres :
+      //	sColonne : colonne à sélectionner avant d'insérer (facultatif)
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Inserer(sColonne="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sColonne<>"" alors
+      	// Sélection de la colonne
+      	:Cellule_Selectionner(sColonne)
+      fin
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // Insertion de la colonne
+      :m_xExcel>>Selection>>Insert(-4161) // xlToRight
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Inserer
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254577158491228
+     type_code : 12
+     code : |1-
+      // Résumé : Insère une ligne 
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Inserer ( [<sLigne>])
+      //
+      // Paramètres :
+      //	sLigne : ligne à sélectionner avant d'insérer (facultatif)
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi 
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLe Ligne_Inserer(sLigne="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sLigne<>"" alors
+      	// sélection de la ligne
+      	:Cellule_Selectionner(sLigne)
+      fin
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // insertion de la ligne
+      :m_xExcel>>Selection>>Insert(-4121) // xlDown
+      
+      renvoyer vrai
+       
+     type : 458752
+   -
+     name : Colonne_Largeur
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254577988373666
+     type_code : 12
+     code : |1-
+      // Résumé : Change la largeur de la colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Largeur ( [<sColonne> [, <nLargeur>]])
+      //
+      // Paramètres :
+      //	sColonne :  colonne à sélectionner (facultatif), dont il faut modifier la largeur
+      //	nLargeur (valeur par défaut=-1) :  largeur désirée ou -1 pour ajuster la largeur de la colonne à son contenu
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      procédure VIRTUELLE Colonne_Largeur(sColonne="" , nLargeur=-1)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sColonne<>"" alors
+      	:Cellule_Selectionner(sColonne)
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      si nLargeur = -1 ALORS
+      	// on ajuste la largeur de la colonne à son contenu
+      	:m_xExcel>>Selection>>Columns>>AutoFit()
+      sinon	
+      	// on redimensionne la colonne
+      	:m_xExcel>>Selection>>ColumnWidth = nLargeur
+      FIN
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Colonne_Masquer
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254578051484864
+     type_code : 12
+     code : |1-
+      // Résumé :  masque ou démasque une colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Masquer ( [<sColonne> [, <bEtat>]])
+      //
+      // Paramètres :
+      //	sColonne : colonne à masquer (facultatif)
+      //	bEtat (valeur par défaut=1) : état désiré : 1 pour masquer
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi 
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Masquer(sColonne="", bEtat=vrai)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sColonne<>"" alors
+      	// on sélectionne la colonne voulue
+      	:Cellule_Selectionner(sColonne)
+      fin
+      
+      // on vérifie la sélection
+      
+      :m_xExcel>>Selection
+      
+      // on change son état
+      si bEtat alors
+      	:m_xExcel>>Selection>>EntireColumn>>Hidden = vrai
+      sinon
+      	:m_xExcel>>Selection>>EntireColumn>>Hidden = faux
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Ligne_Masquer
+     internal_properties : CAAAAAgAAAABFK6U8jd+fgBwn/WLqueKzzpvtzC20LNIkfKFQt8841vZNCEUe2fWqo2/ynrKWPm+zOBdk/MBju8rc8K3yKmFoLrdqGB7L7vCVPX9KEPHVHa16maURIVTCGFnj6wzTHqA043pG0Lkd3bxMf/bZIqM29l0+arN+U76/bYOQ4OYykr4Qi+CXbuUIHRD6y8ta9Pem/4WnwfDXwTk0z2HN/YF
+     procedure_id : 4241254577624976626
+     type_code : 12
+     code : |1-
+      // Résumé :  Masque ou démasque une ligne
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Masquer ( [<sLigne> [, <bEtat>]])
+      //
+      // Paramètres :
+      //	sLigne : Ligne à masquer (facultatif)
+      //	bEtat (valeur par défaut=1) : état désiré (1 = vrai pour masquer )
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Ligne_Masquer(sLigne="", bEtat=vrai)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sLigne<>"" alors
+      	// on sélectionne la colonne voulue
+      	:Cellule_Selectionner(sLigne)
+      fin
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // on change son état
+      si bEtat alors
+      	:m_xExcel>>Selection>>EntireRow>>Hidden = vrai
+      sinon
+      	:m_xExcel>>Selection>>EntireRow>>Hidden = faux
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : nConstCouleur
+     procedure_id : 4241254576981019930
+     type_code : 12
+     code : |1+
+      // Résumé :  Renvoie la constante correspondant à la couleur passée en paramètre
+      // Syntaxe :
+      // [ <Résultat> = ] nConstCouleur (<sCouleur>)
+      //
+      // Paramètres :
+      // 	sCouleur : Couleur en lettre
+      // Valeur de retour :
+      // 	entier : Constante correspondant à la couleur passée en paramètre
+      
+      Procédure nConstCouleur(sCouleur)
+      
+      nCouleur est un entier
+      
+      selon sCouleur
+      	cas "AUCUN" // dans le cas d'une couleur de fond
+      		nCouleur = 0
+      	cas "NOIR"
+      		nCouleur = 1
+      	cas "ROUGE"
+      		nCouleur = 3
+      	cas "VERT"
+      		nCouleur = 4	
+          cas "BLEU"
+      		nCouleur = 5
+      	cas "JAUNE"
+      		nCouleur = 6
+          autre cas 
+      		nCouleur = sCouleur
+      fin
+      renvoyer nCouleur
+      
+     type : 458752
+   -
+     name : Creer
+     internal_properties : CAAAAAgAAACjgnRnjCmwlhainYu5DCfQL4rDe6IIauf+HxgDONkcSb9VVCFOJSGmNH9JuBAM3Pue9GSRtYXjRkGhXSyRZg1fJHaBrHbhpSMYHj87Zi13chnA1zHPFTKAo4xsspGeH5V7Vgoknj9Z9JnsprIMc/0fMjDdQHHC6kut4AshWE5fcfmf+/5RtpjtN5t0uvxAghptqo/NJhCsUIuLZJRVFZSn
+     procedure_id : 4241254578629512534
+     type_code : 12
+     code : |1-
+      // Résumé : Crée un nouveau document
+      // Syntaxe :
+      //[ <Résultat> = ] Creer ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Creer()
+      
+      //Lance Excel
+      :_LanceOuUtiliseInstance()
+      
+      //Ajouter un classeur
+      :m_xExcel>>Workbooks>>Add()
+      
+      // Il n'y a pas de classeur en cours
+      :m_sClasseurEnCours=""
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : nTypeGraphe
+     procedure_id : 4241254578735877482
+     type_code : 12
+     code : |1+
+      Procédure nTypeGraphe(sType)
+      // renvoie la constante correspondant au type de graphe désiré
+      
+      nConstGraphe est un entier
+      
+      selon sType
+      	cas "HISTO"
+      		nConstGraphe = 51 // xlColumnClustered		
+      	cas "COURBE"
+      		nConstGraphe = 65 // xlLineMarkers
+      	CAS "SECTEUR"
+      		nConstGraphe = 5 // xlPie
+      fin
+      
+      renvoyer nConstGraphe
+      
+     type : 458752
+   -
+     name : nVersionOffice
+     internal_properties : CAAAAAgAAAAeh93OhcvyAMv7tynQX9eeQqXqs7qPZLx5QXGqTKRsbWw+gB5k4t/TeQW67PGWRN3mV45V4DG28df4LDWN+YoJaDz+ArsZku+yYZd95Pp2WH3gji365om0yiokmsfAH+BI3ugOIS6yEoR8DnoeyZ2GnX4VszCTKsODyUZ+tgnNImr6UFHKwEkLYLkPe/vrhlm32XwxPVzgFKF4eWwv36uawViKFITxsrmsZA==
+     procedure_id : 4241254577499999634
+     type_code : 12
+     code : |1+
+      // Résumé : Teste la présence d'un logiciel Office (Word, Excel ...) et recherche de sa version la plus récente
+      // Syntaxe :
+      //[ <Résultat> = ] nVersionOffice (<sProgramme>)
+      //
+      // Paramètres :
+      //	sProgramme : Programme recherché
+      // Valeur de retour :
+      // 	entier : renvoie 0 si le logiciel n'est pas trouvé et le numéro de version s'il est trouvé
+      // Traitement automatique des erreurs : RENVOYER 0
+      //
+      
+      Procédure nVersionOffice(sProgramme)
+      
+      sCle, sSousCle SONT DES CHAINES
+      nVersion EST UN entier = 0
+      
+      // on teste la présence d'Office
+      sCle = RegistrePremièreSousClé("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\")
+      
+      // si Office n'est pas présent sur la machine, Word ne peut pas être présent
+      SI sCle~="" ALORS RENVOYER 0
+      
+      // si Office est présent sur la machine, on teste la présence du programme
+      TANTQUE sCle<>""
+      	// Première sous clé du programme
+      	sSousCle = RegistrePremièreSousClé(sCle+"\"+sProgramme+"\")
+      	// si le programme est trouvé, on récupère sa version
+      	SI sSousCle<>"" ALORS
+      		// on ne conserve que la version la plus récente
+      		nVersion = Max(val(ExtraitChaîne(sCle,1,"\",DepuisFin)),nVersion)		
+      	FIN
+      	// Clé suivante
+      	sCle = RegistreCléSuivante(sCle)
+      FIN
+      
+      RENVOYER nVersion
+     type : 458752
+   -
+     name : OuvrirClasseur
+     internal_properties : CAAAAAgAAAAyaN4ekI9mMBHrU++Xer/03L1WOq5UjwyEq9fbaEdNoRw4KTLTiR6MtXl6afEPSJZh+RoAhyWMg3ff51+Nf+U8pVVrXI3RIPhpifZhtipxlEEUgKcvmgi08yu/ObtkdTjEw9ismc/hqw5FF+We0B/iu63H2LzsNEBOTXrmuiML7EgSJ2jGOgbG8oiLTa4/9JpdG4nbYy6WAs+YZnywdVj3zj8oRmogWX4RL4ymWX0grrmkdq8JKOz9xRxND2FG
+     procedure_id : 4241254578823106039
+     type_code : 12
+     code : |1-
+      // Résumé : Ouvre un classeur
+      // Syntaxe :
+      //[ <Résultat> = ] OuvrirClasseur ( [<sClasseur>])
+      //
+      // Paramètres :
+      //	sClasseur (valeur par défaut="") : classeur à ouvrir (facultatif)
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE OuvrirClasseur(sClasseur="") <redéfinition>
+      
+      // Choix du classeur à ouvrir
+      sClasseur = fSélecteur("", "", "Sélectionnez un classeur...", "Microsoft Excel (*.xls)"+TAB+"*.xls"+RC+"Microsoft Excel 2007 (*.xlsx)"+TAB+"*.xlsx"+RC+"Microsoft Excel Modèle (*.xlt)"+TAB+"*.xlt"+RC+"Tous fichiers (*.*)"+TAB+"*.*", "*.xls", fselOuvre+fselExiste)
+      
+      //Lance Excel
+      :_LanceOuUtiliseInstance()
+      
+      // Le fichier existe-t-il ?
+      SI fFichierExiste(sClasseur) = faux ALORS
+      	RENVOYER Faux	
+      FIN
+      
+      
+      // on ouvre le classeur demandé
+      :m_xExcel>>Workbooks>>Open(sClasseur)
+      
+      // ce document devient le document en cours
+      :m_sClasseurEnCours = sClasseur
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Police
+     internal_properties : CAAAAAgAAADlyILopttkWqCMX5kXrosya56rK6xCTCcwJbrRjqNIm4cdEFWQZ2vCcgHnjhaGDEEauMyxl2dVEt8nQ5YLFGXF3B5x7DS3e/eKSH1BRF+TBFwTTIzSGtcZbsc5/doVZpy+kd8H2eB+tVwXc+3JjjQGWd92L3ArMwygK+gMSbXihIiuhG1gU53qNoLtAQ0nta08+Uhc1f01NUrIH+lrU9Jh
+     procedure_id : 4241254577010839091
+     type_code : 12
+     code : |1+
+      // Résumé : Modifie la police
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Police ( [<sPlage> [, <sPolice> [, <nTaille> [, <bGras> [, <bItalique> [, <bSouligne> [, <sCouleurTexte> [, <sCouleurFond>]]]]]]]])
+      //
+      // Paramètres :
+      //	sPlage : plage de cellules à sélectionner (facultatif)
+      //	sPolice : police désirée (facultatif)
+      //	nTaille (valeur par défaut=0) : taille de police désirée (facultatif)
+      //	bGras : gras de la police
+      //	bItalique : italique de la police
+      //	bSouligne : souligné
+      //	sCouleurTexte :  couleur de texte de la cellule (facultatif)
+      //	sCouleurFond :  couleur de fond de la cellule (facultatif)
+      // Valeur de retour :
+      // 	booléen :  Vrai si traitement réussi 
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Police(sPlage="", sPolice="", nTaille=0 ,bGras="", bItalique="", bSouligne="", sCouleurTexte="", sCouleurFond="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      si sPlage<>"" alors
+      	
+      	// on sélectionne la plage de cellules désirée
+      	:Cellule_Selectionner(sPlage)
+      	
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      	
+      	// Police désirée
+      	SI sPolice<>"" ALORS
+      		:m_xExcel>>Selection>>Font>>Name = sPolice
+      	FIN
+      	
+      	// Taille de la police désirée
+      	SI nTaille>0 ALORS
+      		:m_xExcel>>Selection>>Font>>Size = nTaille
+      	FIN
+      	// graisse
+      	:Cellule_Graisse(bGras, bItalique, bSouligne)
+      	
+      	// couleur
+      	SI sCouleurTexte<>"" ALORS
+      		:Cellule_Couleur(sPlage, sCouleurTexte, "")
+      	FIN
+      	
+      	// couleur de fond
+      	SI sCouleurFond<>"" ALORS
+      		:Cellule_Couleur(sPlage, "", sCouleurFond)
+      	FIN
+      	
+      	renvoyer vrai 
+      	
+      fin
+      
+      renvoyer faux
+      
+     type : 458752
+   -
+     name : Quitter
+     internal_properties : CAAAAAgAAAA7uBrZ4v4HRQfsfHdRoGfJXN8oqudGfhTevI7MDFnygZk1EjedOlabOBDhA6dfgfoRSlykmzkJ/NfoqtWSZQhR5K++VkgNLYiUySfOIPfqoeJOnHiwCw405LDj1mxlnV1ahpd7OyFd8iLseUL9vCEbJeKQ0fzsVPP2BlDPTaPB/wrtLl9sNNp3CMHt9N9v+IRq/jjQL5aWuEzeg5QyKkA=
+     procedure_id : 4241254577007431299
+     type_code : 12
+     code : |1-
+      // Résumé : Quitte Excel
+      // Syntaxe :
+      //[ <Résultat> = ] Quitter ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure Quitter()
+      
+      :m_xExcel>>Quit()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_Renommer
+     internal_properties : CAAAAAgAAACXNLbFTgIeh/GOnhO3tOVDWF3MoF3mms44XizIQhW8RzmrTv3DomLBVl6bZ4Vju7zNnJhqKdHdMokC1L1k5Q7TDAUG2ApZVSKix0UiboNcHG/dE0EtHBP9fZvOrSuyPJiXRa7UaFKqu/tPjHlMcYiGDtWD/qHhLQSfYcvOVGS89oNwqeRF/a+ERYA8J9rUY9OrqVMl1K+rkWiK13jentQ=
+     procedure_id : 4241254578434739863
+     type_code : 12
+     code : |1+
+      // Résumé : Renomme la feuille spécifiée
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Renommer (<sAncienNom>, <sNouveauNom>)
+      //
+      // Paramètres :
+      //	sAncienNom : Ancien nom de la feuille (facultatif -> feuille en cours)
+      //	sNouveauNom : Nouveau nom de la feuille
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      //
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Renommer(sAncienNom, sNouveauNom)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // pas de nom vide pour les feuilles
+      SI sAncienNom="" _OU_ sNouveauNom="" ALORS
+      	RENVOYER Faux
+      FIN
+      
+      // si la feuille à modifier existe
+      // et que le nouveau nom n'est pas déjà pris
+      SI :Feuille_Existe(sAncienNom)=Vrai _ET_ :Feuille_Existe(sNouveauNom)=Faux ALORS
+      	// Renomme la feuille de calcul <sAncienNom> en <sNouveauNom>
+      	:m_xExcel>>Sheets(sAncienNom)>>Name=sNouveauNom
+      	RENVOYER Vrai
+      SINON
+      	RENVOYER Faux
+      FIN
+     type : 458752
+   -
+     name : Cellule_Selectionner
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254577031024319
+     type_code : 12
+     code : |1+
+      // Résumé : Sélectionne une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Selectionner (<sCellules>)
+      //
+      // Paramètres :
+      //	sCellules : plage de cellules à sélectionne
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_Selectionner(sCellules)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // sCellules est la r
+      // ex: A1 pour une seule cellule
+      // ex: A1:B2  pour une plage de cellules
+      // ex: A pour une colonne
+      // ex: A:C pour une plage de colonnes
+      // ex: 2 pour une ligne
+      // ex: 2:5 pour une plage de lignes
+      
+      sCellule, sLigne1, sLigne2, sColonne1, sColonne2, sCh sont des chaines
+      i est un entier
+      nBorne		est un entier
+      
+      sPlage  est une chaine = sCellules
+      
+      // si on reçoit A1, on le formate en A1:A1
+      si position(sPlage,":")=0 alors
+      	sPlage = sPlage+":"+sPlage
+      FIN
+      
+      // première cellule
+      sCellule = extraitchaine(sPlage,1,":")
+      nBorne = Taille(sCellule)
+      pour i=1 à nBorne
+      	sCh = sCellule[[i]] 
+      	si numeriqueverschaine(val(sCh))~=sCh alors
+      		sLigne1 += sCh
+      	sinon
+      		sColonne1 += sCh
+      	fin
+      FIN
+      
+      // deuxième cellule
+      sCellule = extraitchaine(sPlage,2,":")
+      nBorne = Taille(sCellule)
+      pour i=1 à nBorne
+      	sCh = sCellule[[i]] 
+      	si numeriqueverschaine(val(sCh))~=sCh alors
+      		sLigne2 += sCh
+      	sinon         
+      		sColonne2 += sCh
+      	fin
+      FIN
+      
+      // Sélection de la plage
+      
+      // si c'est une plage de lignes
+      si (sColonne1~="" et sColonne2~="") alors
+      	:m_xExcel>>Rows(sLigne1+":"+sLigne2)>>Select()
+      	renvoyer vrai
+      FIN
+      
+      // si c'est une plage de colonnes
+      si (sLigne1~="" et sLigne2~="") alors
+      	:m_xExcel>>Columns(sColonne1+":"+sColonne2)>>Select()
+      	RENVOYER Vrai
+      FIN
+      
+      // si c'est une plage de cellules
+      si (sLigne1<>"" et sLigne2<>"" et sColonne1<>"" et sColonne2<>"") alors
+      	:m_xExcel>>Range(sColonne1+sLigne1+":"+sColonne2+sLigne2)>>Select()
+      	RENVOYER Vrai
+      sinon
+      	RENVOYER faux
+      fin
+      
+     type : 458752
+   -
+     name : Feuille_SelectionnerParIndice
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254582357987257
+     type_code : 12
+     code : |1+
+      // Résumé : Sélectionne une feuille par son indice
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_SelectionnerParIndice (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Indice de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_SelectionnerParIndice(nIndice)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      sNomFeuille est une chaine 
+      
+      si nIndice<1 ou nIndice > :Feuille_Occurrence() ALORS
+      	renvoyer faux
+      FIN
+      
+      //on sélectionne la feuille demandée
+       :m_xExcel>>Sheets>>Item(nIndice)>>Select()
+      
+      sNomFeuille = :Feuille_Nom()
+      TableauSupprimeTout(:m_sTabFeuillesSélectionnées)
+      TableauAjoute(:m_sTabFeuillesSélectionnées,sNomFeuille)
+      
+      renvoyer vrai 
+     type : 458752
+   -
+     name : Cellule_Lire
+     internal_properties : CAAAAAgAAACRR52uZBMIXMK5oO0sMmNWfPugSPvHPa3tSRUjrXj8eMjxk0IX+Sb286uRsTlDh1Ig+X7ZTtogn3XOqNvirwUC5ufPFdcS/QvaEIkRj38zGii7ZXnCpVp3toNzN3dT14K88/jo14kFR+pBq+nq0j38RzGzuN4RbQGKm+0Nqss/gfu3IkwoBY/oFKVwoJUKgr95gnHyQ9ivfwp4zroAow==
+     procedure_id : 4241254582095974349
+     type_code : 12
+     code : |1+
+      // Résumé : Renvoie le contenu de la cellule 
+      // Syntaxe :
+      // [ <Résultat> = ] Cellule_Lire (<sCellule>)
+      //
+      // Paramètres :
+      //	sCellule : cellule dont on veut lire la valeur
+      // Valeur de retour :
+      // 	Type indéterminé : valeur de la cellule
+      //
+      // Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Cellule_Lire(sCellule)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      renvoyer :m_xExcel>>Range(sCellule)>>Value
+      
+     type : 458752
+   -
+     name : Feuille_Supprimer
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 4241254582679506923
+     type_code : 12
+     code : |1+
+      // Résumé : Supprime la feuille spécifiée
+      // Syntaxe :
+      // [ <Résultat> = ] Feuille_Supprimer ( [<sNomFeuille>])
+      //
+      // Paramètres :
+      // 	sNomFeuille : Nom de la feuille à supprimer (facultatif-> feuille en cours)
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi 
+      //
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      
+      Procédure VIRTUELLE Feuille_Supprimer(sNomFeuille="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // On sélectionne la feuille désirée
+      si sNomFeuille<>"" alors
+      	:Feuille_Selectionner(sNomFeuille)
+      FIN
+      
+      // Suppression de la feuille en cours du classeur
+      :m_xExcel>>ActiveWindow>>SelectedSheets>>Delete()
+      
+      renvoyer vrai 
+      
+     type : 458752
+   -
+     name : Colonne_Trier
+     internal_properties : CAAAAAgAAABssKTyAnNcq/jVAsztfJRxa7X6fEOb7aU18bm3qZaFfO+s3vEAsQ34QKVtJgRJbPAaVYuuSchxqzvFXaOOk0A+SBNn9YBvm3eXSWhHgPpZHD0MkpBo3bdrC2xckinGY7NbNmpEbjdRgA+S/GTGsX+9rrRfNg+45EOPQm+FwgQVRSfNlZynMJbzT2IpxcjUMiq9essZKlSOsEl5ilYSSEYmDqAB3x/MgcUHoUKl8NVZ3g==
+     procedure_id : 4241254589924251332
+     type_code : 12
+     code : |1+
+      // Résumé : Trie la colonne
+      // Syntaxe :
+      //[ <Résultat> = ] Colonne_Trier ( [<sColonne> [, <sOrdre>]])
+      //
+      // Paramètres :
+      //	sColonne :  Nom de la colonne à trier ex : B
+      //	sOrdre (valeur par défaut="ASC") : Ordre de tri : ASC ou DESC
+      // Valeur de retour :
+      // 	booléen :  Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Colonne_Trier(sColonne="", sOrdre="ASC")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on sélectionne la colonne
+      si sColonne<>"" alors
+      	:Cellule_Selectionner(sColonne)
+      fin
+      
+      // constante de Excel pour ordre
+      nOrdre est un entier
+      si sOrdre~="DESC" alors
+      	nOrdre=2
+      sinon
+      	nOrdre=1
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // Tri
+      :m_xExcel>>Selection>>Sort(:m_xExcel>>Selection, nOrdre)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : EstVisible
+     internal_properties : CAAAAAgAAAC6ROQHFRHbpyWvSWlY7l9SkLAEMcerWfs17RhSv/Nnm87ZRgwRyf6ljGFEKbmnr6OtOKcU49F027RxfX+TeOMnD4uzkiaQgLNPgRctaXCKrlY4vMz4AqIFkBhWOKoQVywz/m4TqY9EpXFOSGv6km5Dd/B5ecYkDbD7SJXQgml4L2B5OUlYGjHYOencHWRDHze/Ln+Mg5KH0uhKcU+O03v6YaiQjIfn911dQLH6CaJKkTdsiUbyzZfd+DD1cZ6sx/ekSOrV4zHGOm+tuQ==
+     procedure_id : 4241254590129313536
+     type_code : 12
+     code : |1-
+      // Résumé : Modifie l'état de visibilité de Excel
+      // Syntaxe :
+      //[ <Résultat> = ] EstVisible ( [<bEtat>])
+      //
+      // Paramètres :
+      //	bEtat (valeur par défaut=1) : 1 = vrai pour rendre visible
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi 
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure EstVisible(bEtat=Vrai)
+      // état de Excel (visible/invisible)
+      
+      si bEtat alors
+      	// Excel est visible
+      	:m_xExcel>>visible=vrai
+      sinon
+      	// Excel n'est pas visible
+      	:m_xExcel>>visible=faux
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Couleur
+     internal_properties : CAAAAAgAAACBlC4Uco/2/sBwnzUL6ueKD7pvd3B2EPNIUTIFAt/8o9sZdCGUe2fW6g2/inoK2Pn+zOAd0zPBTm/rM8J3SOlFIHqdqGD7rzsC1HW9qINHVFYVSkb0ZCXzKAEHLwwTrBrgM21Je2KElxaR0R87ROosOznUWYrtGW6aHdYuo2P46qrYoo/i/du0wBTjC48NS3M+e952fyfjfySMU70Ht3aF
+     procedure_id : 1681411295276735015
+     type_code : 12
+     code : |1+
+      // Résumé : Modifie la couleur d'une cellule, couleur de texte et couleur de fond
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Couleur ( [<sPlage> [, <sCouleurTexte> [, <sCouleurFond>]]])
+      //
+      // Paramètres :
+      //	sPlage : Plage de cellules à sélectionner
+      //	sCouleurTexte : couleur désirée pour le texte (facultatif)
+      //	sCouleurFond : couleur désirée pour le fond de cellule (facultatif)
+      // Valeur de retour :
+      // 	booléen : vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure Cellule_Couleur(sPlage="", sCouleurTexte="", sCouleurFond="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // couleurs : AUCUN, NOIR, ROUGE, VERT, BLEU, JAUNE
+      
+      
+      si sPlage<>"" alors
+      	
+      	// Sélection de la cellule
+      	:Cellule_Selectionner(sPlage)
+      	
+      	// on vérifie la sélection
+      	:m_xExcel>>Selection
+      	
+      	// couleur de police
+      	SI sCouleurTexte<>"" ALORS
+      		:m_xExcel>>Selection>>Font>>Color = :nConstCouleur(sCouleurTexte)
+      	FIN
+      	
+      	// couleur de fond
+      	SI sCouleurFond<>"" ALORS
+      		:m_xExcel>>Selection>>Interior>>Color = :nConstCouleur(sCouleurFond)
+      	FIN
+      	
+      	renvoyer vrai 
+      FIN
+      
+      RENVOYER faux 
+     type : 458752
+   -
+     name : Cellule_Graisse
+     internal_properties : CAAAAAgAAACBlC4Uco/2/sBwnzUL6ueKD7pvd3B2EPNIUTIFAt/8o9sZdCGUe2fW6g2/inoK2Pn+zOAd0zPBTm/rM8J3SOlFIHqdqGD7rzsC1HW9qINHVFYVSkb0ZCXzKAEHLwwTrBrgM21Je2KElxaR0R87ROosOznUWYrtGW6aHdYuo2P46qrYoo/i/du0wBTjC48NS3M+e952fyfjfySMU70Ht3aF
+     procedure_id : 1681411299571768456
+     type_code : 12
+     code : |1-
+      // Résumé : Modifie la graisse d'une cellule
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Graisse ( [<nGras> [, <nItalique> [, <nSouligne>]]])
+      //
+      // Paramètres :
+      //	nGras : "", -1, 0, 1
+      //	nItalique :"", -1, 0, 1
+      //	nSouligne : "", -1, 0, 1
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure Cellule_Graisse(nGras="", nItalique="", nSouligne="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // gras
+      selon nGras
+      	cas 1
+      		:m_xExcel>>Selection>>Font>>Bold = vrai
+      	cas 0
+      		:m_xExcel>>Selection>>Font>>Bold = faux
+      	cas -1
+      		// on permute
+      		si :m_xExcel>>Selection>>Font>>Bold = vrai alors
+      			:m_xExcel>>Selection>>Font>>Bold = faux
+      		sinon
+      			:m_xExcel>>Selection>>Font>>Bold = vrai
+      		fin			
+      fin
+      
+      // Italique
+      selon nItalique
+      	cas 1
+      		:m_xExcel>>Selection>>Font>>Italic = vrai
+      	cas 0
+      		:m_xExcel>>Selection>>Font>>Italic = faux
+      	cas -1
+      		// on permute
+      		si :m_xExcel>>Selection>>Font>>Italic = vrai alors
+      			:m_xExcel>>Selection>>Font>>Italic = faux
+      		sinon
+      			:m_xExcel>>Selection>>Font>>Italic = vrai
+      		fin			
+      fin
+      
+      // Soulignement
+      selon nSouligne
+      	cas 1
+      		:m_xExcel>>Selection>>Font>>Underline = 2 // xlUnderlineStyleSingle
+      	cas 0
+      		:m_xExcel>>Selection>>Font>>Underline = 1 // xlUnderlineStyleNone
+      	cas -1
+      		// on permute
+      		si :m_xExcel>>Selection>>Font>>Underline = 2 alors
+      			:m_xExcel>>Selection>>Font>>Underline = 1 // xlUnderlineStyleNone
+      		sinon
+      			:m_xExcel>>Selection>>Font>>Underline = 2 // xlUnderlineStyleSingle
+      		fin			
+      fin
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_AlignementVertical
+     internal_properties : CAAAAAgAAACfeNhElUm3ozancPUku6RmrW0Tb2L68QQiU/vACQAHdE9OvuNnZQ9IomfunHX/sldxB01dV/khlZvhcZCxnioVQYT7lv2pQ4/dokiNMQc0Q/h+4YJIjhAShJTjyFhTgKu5l6sYlymqZr6Me5nR5XLjjHwXO9om8DqA1G5Nm5utGRq18qDcySPZByyaRw5xwfNm1+0u7Wvkib7iVk95mPx6iw==
+     procedure_id : 1682405004182832907
+     type_code : 12
+     code : |1-
+      // Résumé : Spécifie l'alignement vertical des cellules sélectionnées
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_AlignementVertical ( [<sPlage> [, <nAlignement>]])
+      //
+      // Paramètres :
+      //	sPlage : cellules sélectionnées
+      //	nAlignement (valeur par défaut=1) :haut) : 1->haut, 2->centre, 3->bas
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Cellule_AlignementVertical(sPlage="", nAlignement=::cnAlignV_Haut)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on sélectionne la plage demandée
+      SI sPlage<>"" ALORS
+      	:Cellule_Selectionner(sPlage)
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      nAlignConstante est un entier 
+      
+      // Si l'alignement est correct
+      SI nAlignement DANS (::cnAlignV_Bas,::cnAlignV_Centre,::cnAlignV_Haut) ALORS
+      	// Spécifie l'alignement vertical des cellules de la plage sélectionnée
+      	
+      	SELON nAlignement
+      		CAS 1 : //"HAUT"
+      			nAlignConstante = -4160	//xlTop
+      		CAS 2 : //"CENTRE"
+      			nAlignConstante = -4108 //xlCenter
+      		CAS 3 : //"BAS"
+      			nAlignConstante = -4107 //xlBottom
+      		AUTRE CAS 
+      			nAlignConstante = -4107 //xlBottom
+      	FIN					
+      	
+      	// on réalise l'alignement demandé	
+      	:m_xExcel>>Selection>>VerticalAlignment = nAlignConstante	
+      	renvoyer vrai
+      	
+      fin
+      
+      // L'alignement n'a pas pu être effectué
+      renvoyer faux
+     type : 458752
+   -
+     name : Ligne_Supprimer
+     internal_properties : CAAAAAgAAAAT/FzYGWT9k2RzzPFav7Aw32uPGSge03Dgc28o42Dv0s0IAn05Ba1QQPuWWKNbpgmLfZX3CaG3uYn9Oezv2n7fv8IvrPvNpR/HejDpD8ugXT05lG1Tqy8xxX8eOztyM8iG2nbb0sZZ+QOLOmjweNFwzXMuKilHYymZp0kwhjospmtkMefbGk6AnPuhfnWYEETbQsDpIKgXHAN5gbvtFHj2Bw==
+     procedure_id : 1682413177505730654
+     type_code : 12
+     code : |1+
+      // Résumé : Supprime les lignes spécifiées
+      // Syntaxe :
+      //[ <Résultat> = ] Ligne_Supprimer ( [<sPlage>])
+      // Paramètres :
+      //	sPlage : plage de cellules à sélectionner (facultatif)
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi 
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      
+      
+      Procédure VIRTUELLE Ligne_Supprimer(sPlage = "")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      // on sélectionne la plage demandée
+      SI sPlage<>"" ALORS
+      	// sélection de la ligne
+      	:Cellule_Selectionner(sPlage)
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // suppression des lignes
+      :m_xExcel>>Selection>>Delete(-4162) // xlUp
+      
+      renvoyer vrai
+      
+     type : 458752
+   -
+     name : Feuille_Occurrence
+     internal_properties : CAAAAAgAAACvYlOxHtrD1nYG+4rmhZwzum/8LjsbB4RxxtU0fp5x0+eGupUKZHD8I1MAEnKkE8Cp3UwP2ar+QGL8iVo1FO4BujPOu/mHZSqNh0K1o1nCEJT5gk0aNZOVgPYFycrprmSHnoz3B7gJ1Upu7e4/36y0MvGe5PioJF0Xa/LY7zwmrzCgXRyCLaTn8gY6QLqteuLzf8LglAmkqQoDvtUz
+     procedure_id : 1682426595011525797
+     type_code : 12
+     code : |1-
+      // Résumé : Nombre de feuilles du classeur
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Occurrence ()
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Type indéterminé : Nombre de feuilles du classeur
+      // Traitement automatique des erreurs : RENVOYER 0
+      //
+      
+      Procédure virtuelle Feuille_Occurrence()
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      renvoyer :m_xExcel>>Sheets()>>count()
+     type : 458752
+   -
+     name : Colonne_Supprimer
+     internal_properties : CAAAAAgAAAAT/FzYGWT9k2RzzPFav7Aw32uPGSge03Dgc28o42Dv0s0IAn05Ba1QQPuWWKNbpgmLfZX3CaG3uYn9Oezv2n7fv8IvrPvNpR/HejDpD8ugXT05lG1Tqy8xxX8eOztyM8iG2nbb0sZZ+QOLOmjweNFwzXMuKilHYymZp0kwhjospmtkMefbGk6AnPuhfnWYEETbQsDpIKgXHAN5gbvtFHj2Bw==
+     procedure_id : 1682433144852201623
+     type_code : 12
+     code : |1+
+      // Résumé : Supprime la colonne spécifiée
+      // Syntaxe : 
+      //[ <Résultat> = ] Colonne_Supprimer ( [<sPlage>])
+      // Paramètres :
+      //	sPlage : Indice de la première colonne à supprimer
+      // Valeur de retour :
+      // 	booléen : vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      
+      Procédure VIRTUELLE Colonne_Supprimer(sPlage = "")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // on sélectionne la plage demandée
+      SI sPlage<>"" ALORS
+      	// sélection de la ligne
+      	:Cellule_Selectionner(sPlage)
+      FIN
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // suppression des colonnes
+      :m_xExcel>>Selection>>Delete(-4159) // xlToLeft
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : _LanceOuUtiliseInstance
+     internal_properties : CAAAAAgAAABkLmX7X/XnaFv9eGAgrsK1eOLDKkbh3SojDnIL25DZoJPYG6jP0p36ZpIwRRT5OwlFnQKMVtDBv17YMkdArHD+uQabPCIIhLkVxPAfxUDa7PIICGPXBkyCgEjtvCswgZ9SBZdgGzH/ffZLvHY3iSwtyB6vqs2R8jmco4mxAaq0++YYuivgmdi7nf7bc1nfHyOoSvhSVluNwjCmNpZWRCq5BdHKRCSdPYTADDFiDndqhHYlkS6nZ1J7E9pOS1u6gONcgW2/R63t5M882kRlk5i9DX7CfY1o0LsM+5/A1AIbzaYHMP5DdRgUiZb5Inqz0JjL9cOISrQZ5k6Y/gZXhVa9Xek=
+     procedure_id : 1682463248280335528
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //_LanceOuUtiliseInstance ( [<bRecycle>])
+      // Récupère l'instance active de OpenOffice
+      // Paramètres :
+      // 	bRecycle (valeur par défaut=0) : < indiquez ici le rôle de bRecycle >
+      // Valeur de retour :
+      // 	Aucune
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure PRIVE _LanceOuUtiliseInstance(bRecycle = faux)
+      // si bRecycle=Vrai, on réutilise le Excel qui est déjà ouvert
+      
+      // on teste la présence de Excel et on récupère sa version
+      nVersion EST UN entier
+      nVersion = :nVersionOffice("Excel")
+      SI nVersion = 0 ALORS
+      	FinProgramme("Excel n'a pas été installé sur cette machine, vous ne pouvez pas utiliser cette classe !")
+      	retour
+      FIN
+      SI nVersion < 8 ALORS
+      	FinProgramme("Pour utiliser cette classe, vous devez avoir Excel 97 ou supérieur !")
+      	RETOUR
+      FIN
+      
+      // version de Excel
+      :m_nVersion = nVersion
+      
+      
+      // si Excel n'est pas déjà alloué
+      SI :m_xExcel = Null ALORS
+      	// si l'utilisateur veut réutiliser le Excel déjà ouvert
+      	SI bRecycle ALORS
+      		:m_xExcel = ObjetActif("Excel.Application")
+      		SI :m_xExcel = Null ALORS
+      			// il n'y avait aucun Excel déjà ouvert, on en alloue un 
+      			:m_xExcel = allouer un objet OLE "Excel.Application"	
+      			:EstVisible(Vrai)		
+      		FIN
+      	SINON
+      		// on en alloue un nouveau
+      		:m_xExcel = allouer un objet OLE "Excel.Application"
+      		:EstVisible(Vrai)
+      	FIN
+      FIN
+      
+     type : 458752
+   -
+     name : Feuille_Nom
+     internal_properties : CAAAAAgAAAC6OZtZdReVbi/yff2P/c0DsGYxiR4ORPx5ScNcezKFedOoFwZo3YuXRI2EJrBGfXY25OPzLW4SVHScxgNxohvmzUCj5I9FsCKnQ3sqrSdJDo7wd3vjDrt7pjplwm54+uwbb2+xUold+epSbZ2RfBgUDvC3PnMpmID/462i6PX83XpvAJBZA4WbW4GjVKuf7XRB1dYnnqyNEXqe+xOxq8E=
+     procedure_id : 1682479586387968545
+     type_code : 12
+     code : |1+
+      // Résumé : Renvoie le nom de la feuille spécifiée
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Nom ( [<pnIndice>])
+      // Paramètres :
+      //	pnIndice (valeur par défaut=0) : Indice de la feuille à interroger OU vide pour obtenir le nom de la feuille active
+      // Valeur de retour :
+      // 	Type indéterminé :  Nom de la feuille
+      // Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Feuille_Nom(pnIndice=0)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      sNomFeuille est une chaine
+      
+      si pnIndice<0 ou pnIndice>:Feuille_Occurrence() ALORS
+      	renvoyer ""
+      fin
+      
+      SI pnIndice=0 ALORS
+      	// Nom de la feuille courante
+      	sNomFeuille = :m_xExcel>>ActiveSheet>>Name()
+      SINON
+      	// Nom de la feuille spécifiée
+      	sNomFeuille = :m_xExcel>>Sheets>>item(pnIndice)>>Name()
+      FIN
+      
+      RENVOYER sNomFeuille
+     type : 458752
+   -
+     name : Feuille_Existe
+     internal_properties : CAAAAAgAAAAT/FzYGWT9k2RzzPFav7Aw32uPGSge03Dgc28o42Dv0s0IAn05Ba1QQPuWWKNbpgmLfZX3CaG3uYn9Oezv2n7fv8IvrPvNpR/HejDpD8ugXT05lG1Tqy8xxX8eOztyM8iG2nbb0sZZ+QOLOmjweNFwzXMuKilHYymZp0kwhjospmtkMefbGk6AnPuhfnWYEETbQsDpIKgXHAN5gbvtFHj2Bw==
+     procedure_id : 1682481892796690919
+     type_code : 12
+     code : |1+
+      //Résumé : Teste l'existence d'une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Existe (<psNomFeuille>)
+      // Paramètres :
+      //	psNomFeuille : Nom de la feuille
+      // Valeur de retour :
+      // 	booléen : Vrai si la feuille existe
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Existe(psNomFeuille)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      sNomFeuille est une chaine 
+      
+      nNbreFeuilles est un entier = :Feuille_Occurrence()
+      pour i = 1 à nNbreFeuilles	
+      	sNomFeuille = :m_xExcel>>Sheets>>item(i)>>Name
+      	si sNomFeuille = psNomFeuille ALORS
+      		renvoyer vrai 
+      	fin
+      FIN
+      
+      renvoyer faux
+     type : 458752
+   -
+     name : Feuille_Selectionner
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 1682488047492091629
+     type_code : 12
+     code : |1-
+      // Résumé : Sélectionne une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Selectionner (<sFeuille>)
+      //
+      // Paramètres :
+      //	sFeuille : Nom de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen : Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Selectionner(sFeuille)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      //on sélectionne la feuille demandée
+      :m_xExcel>>Sheets(sFeuille)>>Select()
+      
+      TableauSupprimeTout(:m_sTabFeuillesSélectionnées)
+      tableauajoute(:m_sTabFeuillesSélectionnées,sFeuille)
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Type
+     internal_properties : CAAAAAgAAAC6OZtZdReVbi/yff2P/c0DsGYxiR4ORPx5ScNcezKFedOoFwZo3YuXRI2EJrBGfXY25OPzLW4SVHScxgNxohvmzUCj5I9FsCKnQ3sqrSdJDo7wd3vjDrt7pjplwm54+uwbb2+xUold+epSbZ2RfBgUDvC3PnMpmID/462i6PX83XpvAJBZA4WbW4GjVKuf7XRB1dYnnqyNEXqe+xOxq8E=
+     procedure_id : 1683526944096659573
+     type_code : 12
+     code : |1+
+      // Résumé : Renvoie le type d'une cellule (vide, valeur, texte, formule)
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Type (<sCellule>)
+      // Paramètres :
+      //	sCellule : Cellule à interroger
+      // Valeur de retour :
+      // 	Type indéterminé : 
+      // Traitement automatique des erreurs : RENVOYER ""
+      //
+      
+      Procédure VIRTUELLE Cellule_Type(sCellule)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      //Détermine si la cellule est une formule
+      EstUneFormule est un booleen = :m_xExcel>>Range(sCellule)>>HasFormula
+      
+      si EstUneFormule alors
+      	
+      	renvoyer "FORMULE"
+      	
+      sinon
+      	
+      	vVariant est un variant = :m_xExcel>>Range(sCellule)>>Value
+      	
+      	si vVariant = null ALORS
+      		renvoyer "VIDE"
+      	sinon
+      		
+      		selon vVariant..Type
+      			cas wlChaîne :
+      				renvoyer "TEXTE"
+      			AUTRE CAS :
+      				renvoyer "VALEUR"
+      				
+      		FIN
+      	fin		
+      	
+      fin
+      
+     type : 458752
+   -
+     name : ApercuAvantImpression
+     internal_properties : CAAAAAgAAAC84HQCwWW1q1jlYvztfKQRS0XaLHMz/aW1sXm3aZbFPO9snvEAMY34ACXtZgSJbHBaVYtuCQgx67sFHSPOk4B+yFOn9YDvG/dXSegHADpZHH0MktConfcrq4x8sgmmw9M7lsokztfxIC8ynISmEV/djhQ/lm/YBGOv4g8lIuR1ZQctdXwH0LaT7wLJZSg0ksqd2qv5CnQu0Cmpcl6aoP5OljiZd6cUSW0/wkNVoAWprg==
+     procedure_id : 1683573239569882614
+     type_code : 12
+     code : |1+
+      // Résumé : Lance l'aperçu avant impression
+      // Syntaxe :
+      //[ <Résultat> = ] ApercuAvantImpression ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :   Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE ApercuAvantImpression()
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert() = faux ALORS
+      	renvoyer faux
+      FIN
+      
+      // On appelle la fonction d'impression de Excel
+      :m_xExcel>>ActiveWindow>>SelectedSheets>>PrintPreview()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Feuille_AjouterSélection
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 1683577534549778780
+     type_code : 12
+     code : |1-
+      // Résumé : Sélectionne une feuille
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_AjouterSélection (<nIndice>)
+      //
+      // Paramètres :
+      //	nIndice : Nom de la feuille à sélectionner
+      // Valeur de retour :
+      // 	booléen :   Vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_AjouterSélection(nIndice)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      sNomFeuille est une chaîne
+      
+      //on sélectionne la feuille demandée
+      sNomFeuille = :m_xExcel>>Sheets>>Item(nIndice)>>Name
+      
+      TableauAjoute (:m_sTabFeuillesSélectionnées, sNomFeuille)
+      
+      //on sélectionne la feuille demandée
+      :m_xExcel>>Sheets(:m_sTabFeuillesSélectionnées)>>Select()
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : Cellule_Bordure
+     internal_properties : CAAAAAgAAAAj7GzISTSZUwzDJKnqd+Cob+OHgagGI4jwy9+4K7BHAoXY4u3BBbWwmNvOIKMzZmG7pd3/OSnn4akFKSxXevbfd4L/HFNdTf//WhhhzzMAtTEV+ImPFwsVgaPKRy9m/yxadoonXqKFLW8/ZmTUnH2kgW+StkUzD13lS9W8Km6o2n9wRdPn9koEaO+dmnmcfDjfTuQ17BRT0P8NcYu9JGjmFw==
+     procedure_id : 1687289292512485193
+     type_code : 12
+     code : |1+
+      // Résumé : Permet de définir les bordures d'une cellule ou d'une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Bordure ( [<sPlage> [, <nBordure> [, <nEpaisseur> [, <nCouleur>]]]])
+      //
+      // Paramètres :
+      //	sPlage (valeur par défaut="") : Plage de cellules
+      //	nBordure (valeur par défaut=1) : Quelle bordure veut on ? (par défaut : toutes)
+      //	nEpaisseur (valeur par défaut=-4138) : Quelle épaisseur pour la bordure ? (par défaut : épaisseur moyenne)
+      //	nCouleur (valeur par défaut=0) : Quelle couleur pour la bordure ? (par défaut : noir)
+      // Valeur de retour :
+      // 	booléen :  vrai si traitement réussi
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure virtuelle Cellule_Bordure(sPlage = "", nBordure = CExcel::cnToutesBordures, nEpaisseur = CExcel::cnepaisseurMoyen, nCouleur = 0)
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // Sélection de la plage de cellule
+      SI sPlage<>"" ALORS
+      	:Cellule_Selectionner(sPlage)
+      fin
+      
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      
+      //On veut toutes les bordures
+      si nBordure =CExcel::cnToutesBordures alors
+      	// On met la bordure de type voulu à l'endroit voulu
+      	:m_xExcel>>Selection>>Borders>>LineStyle = ::cnTypeBordureContinue
+      	//de l'épaisseur voulue
+      	:m_xExcel>>Selection>>Borders>>Weight = nEpaisseur
+      	//de la couleur voulue
+      	:m_xExcel>>Selection>>Borders>>Color = nCouleur
+      sinon
+      	//ON veut une bordure spécifique
+      	// On met la bordure de type voulu à l'endroit voulu
+      	:m_xExcel>>Selection>>Borders>>Item(nBordure)>>LineStyle = ::cnTypeBordureContinue
+      	//de l'épaisseur voulue
+      	:m_xExcel>>Selection>>Borders>>Item(nBordure)>>Weight = nEpaisseur
+      	//de la couleur voulue
+      	:m_xExcel>>Selection>>Borders>>Item(nBordure)>>Color = nCouleur
+      fin
+      
+      RENVOYER Vrai 
+      
+      
+     type : 458752
+   -
+     name : Cellule_Motif
+     internal_properties : CAAAAAgAAACBlC4Uco/2/sBwnzUL6ueKD7pvd3B2EPNIUTIFAt/8o9sZdCGUe2fW6g2/inoK2Pn+zOAd0zPBTm/rM8J3SOlFIHqdqGD7rzsC1HW9qINHVFYVSkb0ZCXzKAEHLwwTrBrgM21Je2KElxaR0R87ROosOznUWYrtGW6aHdYuo2P46qrYoo/i/du0wBTjC48NS3M+e952fyfjfySMU70Ht3aF
+     procedure_id : 1687303925498633356
+     type_code : 12
+     code : |1+
+      // Résumé : Permet de modifier le style de motif d'une cellule ou d'une plage de cellules
+      // Syntaxe :
+      //[ <Résultat> = ] Cellule_Motif ( [<sPlage> [, <nStyleMotif> [, <nCouleur>]]])
+      //
+      // Paramètres :
+      //	sPlage : plage de cellules à sélectionner
+      //	nStyleMotif (valeur par défaut=14) : style de motif que l'on souhaite
+      //	nCouleur : Couleur du motif
+      // Valeur de retour :
+      // 	booléen :     Vrai si traitement réussi
+      
+      // Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure virtuelle Cellule_Motif(sPlage="", nStyleMotif=::cnMotifDiagonaleHaut, nCouleur=rvb(60,60,60))
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      // Sélection de la plage de cellule
+      si sPlage<>"" alors
+      	:Cellule_Selectionner(sPlage)
+      fin
+      
+      
+      // on vérifie la sélection
+      :m_xExcel>>Selection
+      
+      // On met au motif	voulu
+      :m_xExcel>>Selection>>Interior>>Pattern 		= nStyleMotif
+      // On met la couleur voulue 
+      :m_xExcel>>Selection>>Interior>>PatternColor 	= nCouleur
+      
+      renvoyer vrai 
+     type : 458752
+   -
+     name : Feuille_Ajouter
+     internal_properties : CAAAAAgAAAAhdE40Uu9OrpCwj5W7esdanxq/d9BGYDMI4ZKVQj+MY1upFBEEm6fmWi3vqmr6uMmObLAd0yMxrs878/K3aDllgCrdeJDbr+uy9CWduLMHJO4dsu7MXP3L0Hlf58Q79PJ4WxURM1r8L/6JiZezDHLkU+F8ISJl8UaiFS7mG4ugIkLgqrca9VMsqMxbg4fVcwt2QwYed38bN+zsM50nlxYl
+     procedure_id : 1687322307968576469
+     type_code : 12
+     code : |1-
+      // Résumé : Ajoute une feuille dans le classeur
+      // Syntaxe :
+      //[ <Résultat> = ] Feuille_Ajouter ( [<sNomFeuille>])
+      //
+      // Paramètres :
+      //	sNomFeuille : nom à donner à la nouvelle feuille
+      // Valeur de retour :
+      // 	booléen :  vrai si traitement réussi
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure VIRTUELLE Feuille_Ajouter(sNomFeuille="")
+      
+      // Y-a-t-il bien un document actif
+      SI :EstOuvert()=Faux ALORS
+      	RENVOYER Faux
+      FIN
+      
+      
+      //Ajouter une feuille dans le classeur
+      :m_xExcel>>Sheets>>Add()
+      
+      //récupération du nom de la feuille en cours => de la feuille ajoutée
+      sNomFeuilleAjoutée est une chaine = :Feuille_Nom()
+      
+      // renommage si nécessaire
+      si sNomFeuille<>"" alors
+      	:Feuille_Renommer(sNomFeuilleAjoutée, sNomFeuille)
+      FIN
+      
+      RENVOYER Vrai
+     type : 458752
+   -
+     name : _bDetection
+     internal_properties : CAAAAAgAAAAhZf+b9FR3bNuoWTwT/sN+VdFJiefsFyzRIF5mfn3XV20uEWv7MEPzxpHe7n6dKuH5CjSCI/tpALOPNQ/kHZ7vV968zCAf+W4zM5fwLEl9CEADnW4A6wkYkD0rQfTYV03BwIGrbrykqpCLRYAdCmHvZPPtTD9LCgpkhyDOWfbm/WoitMV1xl85QZuiSNoUVivqRAfn4nD+ve5dSOfpPUx5g91PAqkS2Z8rrWAQNZAkKw==
+     procedure_id : 1687345925979720668
+     type_code : 12
+     code : |1-
+      // Résumé : Indique si le produit Excel est présent sur le poste en cours
+      // Syntaxe :
+      //[ <Résultat> = ] _bDetection ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :      // 	Aucune
+      //// Traitement automatique des erreurs : RENVOYER FAUX
+      //
+      
+      Procédure globale _bDetection()
+      
+      // Variables locales
+      sCle, sSousCle 	SONT DES CHAINES
+      nVersion 		EST UN entier = 0
+      
+      
+      // Teste la présence d'Office
+      sCle = RegistrePremièreSousClé("HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Office\")
+      
+      // Si Office n'est pas présent sur la machine, Word ne peut pas être présent
+      SI sCle~="" ALORS RENVOYER faux
+      
+      // Si Office est présent sur la machine: teste la présence du programme
+      TANTQUE sCle<>""
+      	// Première sous clé du programme
+      	sSousCle = RegistrePremièreSousClé(sCle+"\Excel\")
+      	// Si le programme est trouvé, on récupère sa version
+      	SI sSousCle<>"" ALORS
+      		// Ne conserve que la version la plus récente
+      		nVersion = Max(Val(ExtraitChaîne(sCle,1,"\",DepuisFin)),nVersion)		
+      	FIN
+      	// Clé suivante
+      	sCle = RegistreCléSuivante(sCle)
+      FIN
+      
+      RENVOYER (nVersion<>0)
+     type : 458752
+   -
+     name : EstOuvert
+     procedure_id : 1695004647196877269
+     type_code : 12
+     code : |1+
+      // Syntaxe :
+      //[ <Résultat> = ] EstOuvert ()
+      // Permet de vérifier si le classeur est bien toujours ouvert
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen :    Vrai si le classeur est ouvert
+      
+      PROCEDURE VIRTUELLE EstOuvert()
+      
+      QUAND EXCEPTION DANS
+      	// tentative d'accès à la feuille active du classeur
+      	:m_xExcel>>ActiveSheet>>Name()
+      	RENVOYER Vrai
+      FAIRE
+      	RENVOYER Faux
+      FIN
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : CAAAAAgAAACVGQgYbalU7DKC3oH4ItDrjtcTHXXV/EuH8q0IbhyQlw==
+resources :
+ string_res :
+  identifier : 0x1fc4cd40010ab587
+  internal_properties : CAAAAAgAAACm76HWfKGWp33VjXInA4cRlqArlgTTA862QGt72W2ld5Y=
+custom_note :
+ internal_properties : CAAAAAgAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ
